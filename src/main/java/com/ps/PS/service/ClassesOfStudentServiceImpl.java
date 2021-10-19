@@ -1,4 +1,4 @@
-package net.javaguides.springboot.service;
+package com.ps.PS.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.javaguides.springboot.model.ClassesOfStudent;
-import net.javaguides.springboot.repository.ClassesOfStudentRepository;
+import com.ps.PS.model.ClassesOfStudent;
+import com.ps.PS.repository.ClassesOfStudentRepository;
 
 @Service
 public class ClassesOfStudentServiceImpl implements ClassesOfStudentService {

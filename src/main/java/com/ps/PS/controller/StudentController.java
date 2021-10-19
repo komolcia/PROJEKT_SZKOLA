@@ -1,4 +1,4 @@
-package net.javaguides.springboot.controller;
+package com.ps.PS.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import net.javaguides.springboot.model.Student;
-import net.javaguides.springboot.service.StudentService;
+import com.ps.PS.model.Student;
+import com.ps.PS.service.StudentService;
 
 @Controller
 public class StudentController {

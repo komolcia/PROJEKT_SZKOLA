@@ -1,6 +1,6 @@
-package net.javaguides.springboot.service;
+package com.ps.PS.service;
 import java.util.List;
-import net.javaguides.springboot.model.Student;
+import com.ps.PS.model.Student;
 public interface StudentService {
 List< Student > getAllStudents();
 void saveStudent(Student student);

@@ -1,6 +1,6 @@
-package net.javaguides.springboot.service;
+package com.ps.PS.service;
 import java.util.List;
-import net.javaguides.springboot.model.DeansOfficeEmployee;
+import com.ps.PS.model.DeansOfficeEmployee;
 public interface DeansOfficeEmployeeService {
 List< DeansOfficeEmployee > getAllDeansOfficeEmployees();
 void saveDeansOfficeEmployee(DeansOfficeEmployee deansofficeemployee);

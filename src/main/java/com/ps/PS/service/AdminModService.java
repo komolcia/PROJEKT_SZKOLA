@@ -1,6 +1,6 @@
-package net.javaguides.springboot.service;
+package  com.ps.PS.service;
 import java.util.List;
-import net.javaguides.springboot.model.AdminMod;
+import com.ps.PS.model.AdminMod;
 public interface AdminModService {
 List< AdminMod > getAllAdminMods();
 void saveAdminMod(AdminMod adminMod);

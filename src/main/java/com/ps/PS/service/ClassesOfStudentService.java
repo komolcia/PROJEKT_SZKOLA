@@ -1,6 +1,6 @@
-package net.javaguides.springboot.service;
+package com.ps.PS.service;
 import java.util.List;
-import net.javaguides.springboot.model.ClassesOfStudent;
+import com.ps.PS.model.ClassesOfStudent;
 public interface ClassesOfStudentService {
 List< ClassesOfStudent > getAllClassesOfStudents();
 void saveClassesOfStudent(ClassesOfStudent classesofClassesOfClassesOfStudent);
