@@ -12,7 +12,7 @@ import  com.ps.PS.repository.AdminModRepository;
 @Service
 public class AdminModServiceImpl implements AdminModService {
 
-    @Autowired
+    @Autowired  // it is apparently not recomended, todo: Inspect closer
     private AdminModRepository adminmodRepository;
 
     @Override
