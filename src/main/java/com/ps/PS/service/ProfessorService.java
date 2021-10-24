@@ -1,9 +1,11 @@
 package com.ps.PS.service;
 import java.util.List;
-import com.ps.PS.model.Student;
-public interface StudentService {
-List< Student > getAllStudents();
-void saveStudent(Student professor);
-Student getStudentById(long id);
-void deleteStudentById(long id);
+
+import com.ps.PS.model.Professor;
+
+public interface ProfessorService {
+    List<Professor> getAllProfessors();
+    void saveProfessor(Professor professor);
+    Professor getProfessorById(long id);
+    void deleteProfessorById(long id);
 }
