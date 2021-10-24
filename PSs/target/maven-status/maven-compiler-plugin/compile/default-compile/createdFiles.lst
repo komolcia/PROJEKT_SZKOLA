@@ -1,0 +1,6 @@
+net/javaguides/springboot/service/StudentServiceImpl.class
+net/javaguides/springboot/repository/StudentRepository.class
+net/javaguides/springboot/SpringbootThymeleafCrudWebAppApplication.class
+net/javaguides/springboot/controller/StudentController.class
+net/javaguides/springboot/model/Student.class
+net/javaguides/springboot/service/StudentService.class
