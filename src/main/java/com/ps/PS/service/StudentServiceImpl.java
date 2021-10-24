@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.ps.PS.model.Student;
 import com.ps.PS.repository.StudentRepository;
 
+//todo: https://www.tutorialspoint.com/spring_boot/spring_boot_service_components.htm I think that these stuff should be in controller (specifically the @Autowire part)
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
