@@ -18,6 +18,7 @@ public class Professor {
 	
 	@Column(name = "email")
 	private String email;
+
 	public long getId() {
 		return id;
 	}
