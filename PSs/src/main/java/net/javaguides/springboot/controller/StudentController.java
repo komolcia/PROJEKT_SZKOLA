@@ -22,7 +22,7 @@ public class StudentController {
 	private StudentService studentService;
 	
 	// display list of students
-	@GetMapping("/")
+	@GetMapping("/student")
 	public String viewHomePage(Model model) {
 		return findPaginated(1, "firstName", "asc", model);		
 	}
@@ -39,10 +39,10 @@ public class StudentController {
 	public String saveStudent(@ModelAttribute("student") Student student) {
 		// save student to database
 		studentService.saveStudent(student);
-		return "redirect:/";
+		return "redirect:/student";
 	}
 	
-	@GetMapping("/showFormForUpdate/{id}")
+	@GetMapping("/showFormForUpdateStudent/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
 		
 		// get student from the service
@@ -58,11 +58,11 @@ public class StudentController {
 		
 		// call delete student method 
 		this.studentService.deleteStudentById(id);
-		return "redirect:/";
+		return "redirect:/student";
 	}
 	
 	
-	@GetMapping("/page/{pageNo}")
+	@GetMapping("/pageStudent/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
 			@RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir,
@@ -81,6 +81,6 @@ public class StudentController {
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		
 		model.addAttribute("listStudents", listStudents);
-		return "index";
+		return "indexstudent";
 	}
 }
