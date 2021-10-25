@@ -1,5 +1,8 @@
 package net.javaguides.springboot.model;
 
+import net.javaguides.springboot.model.domain.AmountOfHours;
+import net.javaguides.springboot.model.domain.Day;
+
 import javax.persistence.*;
 
 @Entity

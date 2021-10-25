@@ -1,4 +1,4 @@
-package net.javaguides.springboot.model;
+package net.javaguides.springboot.model.domain;
 
 public enum AmountOfHours {
     HALF(30), FULL(60);
