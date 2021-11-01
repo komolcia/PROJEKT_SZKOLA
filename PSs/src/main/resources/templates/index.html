@@ -12,6 +12,7 @@
 <body>
 <header><center>
 <h1>PS Management System</h1>
+    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
     <a th:href = "@{/}" class="btn btn-primary btn-sm mb-3"> PS </a>
 <a th:href = "@{/student}" class="btn btn-primary btn-sm mb-3"> Student </a>
 <a th:href = "@{/professor}" class="btn btn-primary btn-sm mb-3"> Professor </a>
