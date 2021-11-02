@@ -19,6 +19,13 @@ public class Professor {
 	@Column(name = "email")
 	private String email;
 
+	@ManyToOne()
+	@JoinColumn(name = "professor_id")
+	Faculty faculty;
+
+	@OneToOne
+	Faculty deanAt;
+
 	public long getId() {
 		return id;
 	}

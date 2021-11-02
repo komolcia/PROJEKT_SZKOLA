@@ -15,7 +15,7 @@ public class Faculty {
     @Column(name = "name")
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.DETACH)
     private List<Professor> professors = new LinkedList<>();
 
     @Column(name = "address")

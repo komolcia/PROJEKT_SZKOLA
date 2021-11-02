@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Faculty Management System</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+</head>
+<body>
+<center>
+    <a th:href = "@{/}" class="btn btn-primary btn-sm mb-3"> PS </a>
+    <a th:href = "@{/student}" class="btn btn-primary btn-sm mb-3"> Student </a>
+    <a th:href = "@{/professor}" class="btn btn-primary btn-sm mb-3"> Professor </a>
+    <a th:href = "@{/admin}" class="btn btn-primary btn-sm mb-3"> Admin </a>
+    <a th:href = "@{/deansofficeemployee}" class="btn btn-primary btn-sm mb-3"> DeansOfficeEmployee </a>
+    <a th:href="@{/faculty}" class="btn btn-primary btn-sm mb-3"> Faculty </a>
+    <p></p></center>
+<div class="container my-2">
+    <h1>Faculties List</h1>
+
+
+    <a th:href = "@{/showNewFacultyForm}" class="btn btn-primary btn-sm mb-3"> Add a faculty </a>
+
+    <table border="1" class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/pagefaculty/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                    Name</a>
+            </th>
+            <th>
+                <a th:href="@{'/pagefaculty/' + ${currentPage} + '?sortField=professors&sortDir=' + ${reverseSortDir}}">
+                    Professors</a>
+            </th>
+            <th>
+                <a th:href="@{'/pagefaculty/' + ${currentPage} + '?sortField=address&sortDir=' + ${reverseSortDir}}">
+                    Address</a>
+            </th>
+            <th>
+                <a th:href="@{'/pagefaculty/' + ${currentPage} + '?sortField=dean&sortDir=' + ${reverseSortDir}}">
+                    Dean</a>
+            </th>
+            <th> Actions </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Faculty : ${listFaculties}">
+            <td th:text="${Faculty.name}"></td>
+            <td th:text="${Faculty.address}"></td>
+            <td th:text="${Faculty.dean}"></td>
+            <td th:text="${Faculty.professors}"></td>
+            <td> <a th:href="@{/showFormForUpdateFaculty/{id}(id=${Faculty.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deletePFaculty/{id}(id=${Faculty.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if = "${totalPages > 1}">
+        <div class = "row col-sm-10">
+            <div class = "col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/pagefaculty/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+            </div>
+            <div class = "col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/pagefaculty/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/pagefaculty/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
