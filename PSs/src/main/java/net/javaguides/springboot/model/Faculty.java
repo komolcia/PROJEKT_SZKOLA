@@ -1,9 +1,17 @@
 package net.javaguides.springboot.model;
 
+import lombok.*;
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "faculty")
 public class Faculty {
@@ -15,7 +23,9 @@ public class Faculty {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "faculty", cascade = CascadeType.DETACH)
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "faculty_id")
+    @ToString.Exclude
     private List<Professor> professors = new LinkedList<>();
 
     @Column(name = "address")
@@ -62,5 +72,26 @@ public class Faculty {
 
     public void setDean(Professor dean) {
         this.dean = dean;
+    }
+
+    public void addProfessor(Professor professor) {
+        this.professors.add(professor);
+    }
+
+    public void removeProfessor(Professor professor) {
+        this.professors.remove(professor);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Faculty faculty = (Faculty) o;
+        return id != null && Objects.equals(id, faculty.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

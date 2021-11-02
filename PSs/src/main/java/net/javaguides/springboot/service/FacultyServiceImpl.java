@@ -14,8 +14,15 @@ import java.util.List;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    @Autowired
+
     private FacultyRepository facultyRepository;
+    private ProfessorService professorService;
+
+    @Autowired
+    public FacultyServiceImpl(FacultyRepository facultyRepository, ProfessorService professorService) {
+        this.facultyRepository = facultyRepository;
+        this.professorService = professorService;
+    }
 
     @Override
     public List<Faculty> getAllFaculties() {
