@@ -1,11 +1,6 @@
 package net.javaguides.springboot.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "students")
@@ -23,6 +18,9 @@ public class Student {
 	
 	@Column(name = "email")
 	private String email;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private Adress adress;
 	public long getId() {
 		return id;
 	}
@@ -47,4 +45,7 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public void setAdress(Adress adress) {this.adress = adress;}
+
+	public Adress getAdress() {return adress;}
 }

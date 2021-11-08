@@ -2,6 +2,7 @@ package net.javaguides.springboot.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import net.javaguides.springboot.model.Role;
 
 @Entity
 @Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))

@@ -18,6 +18,9 @@ public class Admin {
 	
 	@Column(name = "email")
 	private String email;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private Adress adress;
 	public long getId() {
 		return id;
 	}
@@ -42,4 +45,7 @@ public class Admin {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public void setAdress(Adress adress) {this.adress = adress;}
+
+	public Adress getAdress() {return adress;}
 }
