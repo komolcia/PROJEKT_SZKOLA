@@ -1,6 +1,6 @@
 package net.javaguides.springboot.service;
 
-import net.javaguides.springboot.model.domain.Grade;
+import net.javaguides.springboot.model.Grade;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

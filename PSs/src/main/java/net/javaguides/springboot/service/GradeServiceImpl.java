@@ -1,8 +1,6 @@
 package net.javaguides.springboot.service;
 
-import net.javaguides.springboot.model.Faculty;
-import net.javaguides.springboot.model.domain.Grade;
-import net.javaguides.springboot.repository.FacultyRepository;
+import net.javaguides.springboot.model.Grade;
 import net.javaguides.springboot.repository.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
