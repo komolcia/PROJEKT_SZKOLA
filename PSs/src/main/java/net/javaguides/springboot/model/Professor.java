@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.javaguides.springboot.model.domain.Degree;
 
 import javax.persistence.*;
 
@@ -30,6 +31,17 @@ public class Professor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Adress adress;
+
+    @Column(name = "degree")
+    private Degree degree;
+
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
 
     public long getId() {
         return id;
@@ -63,7 +75,11 @@ public class Professor {
         this.email = email;
     }
 
-    public void setAdress(Adress adress) {this.adress = adress;}
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
 
-    public Adress getAdress() {return adress;}
+    public Adress getAdress() {
+        return adress;
+    }
 }

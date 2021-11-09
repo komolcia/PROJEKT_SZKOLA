@@ -6,8 +6,12 @@ import javax.persistence.*;
 @Table(name = "group")
 public class Group {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name = "year")
+    private int year;
+    @Column(name = "semester")
+    private int semester;
     @ManyToOne
     private Professor professor;
     @Column(name = "number")

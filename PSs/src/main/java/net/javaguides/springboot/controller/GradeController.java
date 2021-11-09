@@ -72,6 +72,6 @@ public class GradeController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listGrades", listGrades);
-        return "indexGrade";
+        return "indexgrade";
     }
 }
