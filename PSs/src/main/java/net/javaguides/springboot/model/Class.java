@@ -28,9 +28,7 @@ public class Class {
     private AmountOfHours amountOfHours;
     @Column(name = "description")
     private String description;
-    @ManyToOne
-    @Column(name = "faculty")
-    private Faculty faculty;
+
     @Column(name = "maxamountofstudents")
     private int maxAmountOfStudents;
     @Column(name = "currentamountofstudents")
@@ -92,13 +90,7 @@ public class Class {
         this.description = description;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
-    }
 
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
 
     public int getMaxAmountOfStudents() {
         return maxAmountOfStudents;
