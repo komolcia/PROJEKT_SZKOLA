@@ -1,35 +1,8 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-	<meta name="generator" content="Hugo 0.88.1">
-	<title>Signin Template · Bootstrap v5.1</title>
-
-	<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
-
-
-
-	<!-- Bootstrap core CSS -->
-	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+	<meta charset="ISO-8859-1">
+	<title>Registration and Login App</title>
 
 	<link rel="stylesheet"
 		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -37,37 +10,80 @@
 		  crossorigin="anonymous">
 
 </head>
-	<!-- Custom styles for this template -->
-	<link href="styl.css" rel="stylesheet">
-</head>
-<body class="text-center">
+<body>
 
-<main class="form-signin">
-	<form>
-		<img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-		<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-		<div class="form-floating">
-			<label for ="username"> Username </label> :
-			<input type="text" class = "form-control" id ="username" name = "username"
-				   placeholder="Enter Email ID" autofocus="autofocus">
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#" th:href="@{/}">Registration and
+				Login UG</a>
 		</div>
-		<div class="form-floating">
-			<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-			<label for="floatingPassword">Password</label>
+	</div>
+</nav>
+
+<br>
+<br>
+<center>
+<div class = "container">
+	<div class = "row">
+		<div class = "col-md-6 col-md-offset-3">
+			<img src="data:image/png;base64,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"  alt="" width="200" height="200">
+			<h1> Please Sign In</h1>
+			<form th:action="@{/login}" method="post">
+
+				<!-- error message -->
+				<div th:if="${param.error}">
+					<div class="alert alert-danger">Invalid username or
+						password.</div>
+				</div>
+
+				<!-- logout message -->
+				<div th:if="${param.logout}">
+					<div class="alert alert-info">You have been logged out.</div>
+				</div>
+				<div class="form-group">
+					<select>
+						<option value="professor">Professor</option>
+						<option value="student">Student</option>
+					</select>
+				</div>
+
+				<div class = "form-group">
+					<label for ="username"> Username </label> :
+					<input type="text" class = "form-control" id ="username" name = "username"
+						   placeholder="Enter Email ID" autofocus="autofocus">
+				</div>
+
+				<div class="form-group">
+					<label for="password">Password</label>: <input type="password"
+																   id="password" name="password" class="form-control"
+																   placeholder="Enter Password" />
+				</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3">
+							<input type="submit" name="login-submit" id="login-submit"
+								   class="form-control btn btn-primary" value="Log In" />
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="form-group">
+						<span>New user? <a href="/" th:href="@{/registration}">Register
+								here</a></span>
+			</div>
 		</div>
-
-		<div class="checkbox mb-3">
-			<label>
-				<input type="checkbox" value="remember-me"> Remember me
-			</label>
-		</div>
-		<button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-		<p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
-	</form>
-</main>
-
-
-
+	</div>
+</div>
+</center>
 </body>
 </html>
