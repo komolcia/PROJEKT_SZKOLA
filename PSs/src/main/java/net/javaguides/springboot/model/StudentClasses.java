@@ -1,6 +1,5 @@
 package net.javaguides.springboot.model;
 
-import jdk.internal.joptsimple.internal.Classes;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
