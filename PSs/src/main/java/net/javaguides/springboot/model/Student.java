@@ -5,7 +5,7 @@ import net.javaguides.springboot.model.domain.Degree;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 public class Student {
 
     @Id
@@ -25,6 +25,8 @@ public class Student {
     private Adress adress;
     @Column(name = "degree")
     private Degree degree;
+    @ManyToOne
+    private StudentClasses classes;
 
 	public Degree getDegree() {
 		return degree;
