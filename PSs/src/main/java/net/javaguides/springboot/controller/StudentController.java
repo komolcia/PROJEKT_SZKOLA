@@ -35,7 +35,7 @@ public class StudentController {
 	public String addStudent(@ModelAttribute("student") @Valid Student student,BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			System.out.println("Validation error found!");
-			return "redirect:/student";
+			return "new_student";
 		}
 		studentService.addStudent(student);
 		return "redirect:/student";
