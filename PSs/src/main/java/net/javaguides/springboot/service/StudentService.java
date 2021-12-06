@@ -7,9 +7,9 @@ import org.springframework.data.domain.Page;
 import net.javaguides.springboot.model.Student;
 
 public interface StudentService {
+	Student addStudent(Student student);
 	List<Student> getAllStudents();
-	void saveStudent(Student student);
 	Student getStudentById(long id);
-	void deleteStudentById(long id);
-	Page<Student> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+	void updateStudent(Student student);
+	void deleteStudent(long id);
 }

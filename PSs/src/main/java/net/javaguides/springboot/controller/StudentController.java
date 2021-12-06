@@ -1,86 +1,73 @@
 package net.javaguides.springboot.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.service.StudentService;
+import net.javaguides.springboot.model.Student;
+import net.javaguides.springboot.model.domain.Degree;
 
 @Controller
 public class StudentController {
 
-	@Autowired
-	private StudentService studentService;
-	
-	// display list of students
-	@GetMapping("/student")
-	public String viewHomePage(Model model) {
-		return findPaginated(1, "firstName", "asc", model);		
+	private final StudentService studentService;
+
+	public StudentController(@Autowired StudentService studentService) {
+		this.studentService = studentService;
 	}
-	
+
+	@GetMapping("/student")
+	public String students(Model model){
+		model.addAttribute("allStudentsFromDB", studentService.getAllStudents());
+
+		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
+		return "indexstudent";
+	}
+	@PostMapping("/addStudent")
+	public String addStudent(@ModelAttribute("student") @Valid Student student,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("Validation error found!");
+			return "redirect:/student";
+		}
+		studentService.addStudent(student);
+		return "redirect:/student";
+	}
+
 	@GetMapping("/showNewStudentForm")
 	public String showNewStudentForm(Model model) {
 		// create model attribute to bind form data
 		Student student = new Student();
 		model.addAttribute("student", student);
+		model.addAttribute("degrees",Degree.values());
 		return "new_student";
 	}
-	
-	@PostMapping("/saveStudent")
-	public String saveStudent(@ModelAttribute("student") Student student) {
-		// save student to database
-		studentService.saveStudent(student);
+	@GetMapping("/deleteStudent/{id}")
+	public String deleteStudent(@PathVariable long id){
+		studentService.deleteStudent(id);
 		return "redirect:/student";
 	}
-	
 	@GetMapping("/showFormForUpdateStudent/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
-		
-		// get student from the service
 		Student student = studentService.getStudentById(id);
-		
-		// set student as a model attribute to pre-populate the form
 		model.addAttribute("student", student);
+		model.addAttribute("degrees",Degree.values());
 		return "update_student";
 	}
-	
-	@GetMapping("/deleteStudent/{id}")
-	public String deleteStudent(@PathVariable (value = "id") long id) {
-		
-		// call delete student method 
-		this.studentService.deleteStudentById(id);
+
+	@PostMapping("/updateStudent")
+	public String updateStudent(@ModelAttribute("student") Student student){
+
+		studentService.updateStudent(student);
 		return "redirect:/student";
 	}
-	
-	
-	@GetMapping("/pageStudent/{pageNo}")
-	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
-			@RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDir,
-			Model model) {
-		int pageSize = 5;
-		
-		Page<Student> page = studentService.findPaginated(pageNo, pageSize, sortField, sortDir);
-		List<Student> listStudents = page.getContent();
-		
-		model.addAttribute("currentPage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		
-		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		
-		model.addAttribute("listStudents", listStudents);
-		return "indexstudent";
-	}
+
+
 }

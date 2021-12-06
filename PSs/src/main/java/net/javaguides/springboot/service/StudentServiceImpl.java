@@ -1,57 +1,57 @@
 package net.javaguides.springboot.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import net.javaguides.springboot.model.Student;
-import net.javaguides.springboot.repository.StudentRepository;
+import net.javaguides.springboot.service.StudentService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService{
 
-	@Autowired
-	private StudentRepository studentRepository;
-
+	List<Student> lista= new ArrayList<>();
+	public long id=0;
 	@Override
 	public List<Student> getAllStudents() {
-		return studentRepository.findAll();
+		return lista;
 	}
-
 	@Override
-	public void saveStudent(Student student) {
-		this.studentRepository.save(student);
+	public Student addStudent(Student student) {
+		id++;
+		Student studentToAdd = new Student(id, student.getFirstName(), student.getLastName(),student.getEmail(),student.getDegree());
+		lista.add(studentToAdd);
+		return studentToAdd;
 	}
-
 	@Override
-	public Student getStudentById(long id) {
-		Optional<Student> optional = studentRepository.findById(id);
-		Student student = null;
-		if (optional.isPresent()) {
-			student = optional.get();
-		} else {
-			throw new RuntimeException(" Student not found for id :: " + id);
+	public Student getStudentById(long id){
+		Student lookingfor=new Student();
+		for(Student student : lista)
+			if(student.getId()==id)
+				lookingfor=student;
+		return lookingfor;
+	}
+	@Override
+	public void deleteStudent(long id){
+		Student lookingfor=new Student();
+		for(Student student : lista)
+			if(student.getId()==id)
+				lookingfor=student;
+		lista.remove(lookingfor);
+	}
+	@Override
+	public void updateStudent(Student student){
+		int index=0;
+		int temp=0;
+		for(Student student1 : lista) {
+
+			if (student1.getId() == student.getId()){
+				index = temp;
+			}
+			temp++;
 		}
-		return student;
-	}
-
-	@Override
-	public void deleteStudentById(long id) {
-		this.studentRepository.deleteById(id);
-	}
-
-	@Override
-	public Page<Student> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-			Sort.by(sortField).descending();
-		
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-		return this.studentRepository.findAll(pageable);
+		Student studentToAdd = new Student(student.getId(), student.getFirstName(), student.getLastName(),student.getEmail(),student.getDegree());
+		lista.set(index,studentToAdd);
 	}
 }
