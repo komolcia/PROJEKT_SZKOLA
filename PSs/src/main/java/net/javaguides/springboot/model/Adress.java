@@ -1,23 +1,37 @@
 package net.javaguides.springboot.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "adress")
 public class Adress {
 
+
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    public long id;
 
-    @Column(name = "city")
-    private String city;
 
-    @Column(name = "street_number")
-    private String streetnumber;
+    public String city;
 
-    @Column(name = "postal_code")
-    private String postalcode;
+
+    public String streetnumber;
+
+
+    public String postalcode;
+    public  Adress(){}
+    public Adress(String city,String streetnumber,String postalcode){
+        this.city=city;
+        this.postalcode=postalcode;
+        this.streetnumber=streetnumber;
+    }
+    public Adress(long id,String city,String streetnumber,String postalcode){
+        this.id=id;
+        this.city=city;
+        this.postalcode=postalcode;
+        this.streetnumber=streetnumber;
+    }
     public long getId() {
         return id;
     }

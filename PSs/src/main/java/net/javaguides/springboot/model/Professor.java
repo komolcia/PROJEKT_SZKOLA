@@ -28,9 +28,8 @@ public class Professor {
 
     @Column(name = "email")
     private String email;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Adress adress;
+
+
 
     @Column(name = "degree")
     private Degree degree;
@@ -75,11 +74,5 @@ public class Professor {
         this.email = email;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
-    }
 
-    public Adress getAdress() {
-        return adress;
-    }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Student Management System</title>
+<title>Adress Management System</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -43,9 +43,6 @@
 					<li class="nav-item">
 						<a class="nav-link" href="faculty">Faculty</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="adress">Adress</a>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -76,33 +73,31 @@
 	<!-- Background image -->
 </header>
 	<div class="container">
-		<h1>Student Management System</h1>
+		<h1>Adress Management System</h1>
 		<hr>
-		<h2>Update Student</h2>
-		<form action="#" th:action="@{/updateStudent}" th:object="${student}"
+		<h2>Update Adress</h2>
+		<form action="#" th:action="@{/updateAdress}" th:object="${adress}"
 			  method="POST">
 			<input type="number" th:field="*{id}"
 				   placeholder="Id" >
-			<input type="text" th:field="*{firstName}"
-				   placeholder="Student First Name" >
+			<input type="text" th:field="*{city}"
+				   placeholder="Adress City" >
 
-			<input type="text" th:field="*{lastName}"
-				   placeholder="Student Last Name">
+			<input type="text" th:field="*{streetnumber}"
+				   placeholder="Adress Street">
 
-			<input type="text" th:field="*{email}"
-				   placeholder="Student Email">
+			<input type="text" th:field="*{postalcode}"
+				   placeholder="Adress Postal Code">
 
-			<select th:field="*{degree}">
-				<option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
-			</select>
 
-			<button type="submit" > Save Student</button>
+
+			<button type="submit" > Save Adress</button>
 		</form>
 
 
 		<hr>
 		
-		<a th:href = "@{/}"> Back to Student List</a>
+		<a th:href = "@{/}"> Back to Adress List</a>
 	</div>
 </body>
 </html>

@@ -3,19 +3,19 @@ package net.javaguides.springboot.model;
 import net.javaguides.springboot.model.domain.Degree;
 
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@Entity
 public class Student {
     @NotNull
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     @NotNull
     @Size(min = 2, max = 10, message = "name should be longer than (equal to) 2 letters and shorter than (equal to) 10")
@@ -30,9 +30,13 @@ public class Student {
     @NotNull
 
     private Degree degree;
+    @OneToOne(targetEntity = net.javaguides.springboot.model.Adress.class)
 
-    public Student(String firstname, String lastName, String email, Degree degree) {
+    @Autowired
+    private Adress adress;
 
+    public Student(String firstname, String lastName, String email, Degree degree,Adress adress) {
+        this.adress=adress;
         this.email = email;
         this.degree = degree;
         this.firstName = firstname;
@@ -40,7 +44,8 @@ public class Student {
 
     }
 
-    public Student(long id, String firstname, String lastName, String email, Degree degree) {
+    public Student(long id, String firstname, String lastName, String email, Degree degree,Adress adress) {
+        this.adress=adress;
         this.id = id;
         this.degree = degree;
 
@@ -83,6 +88,13 @@ public class Student {
         return lastName;
     }
 
+    public Adress getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
