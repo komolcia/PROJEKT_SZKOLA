@@ -29,8 +29,6 @@ public class Professor {
     @Column(name = "email")
     private String email;
 
-
-
     @Column(name = "degree")
     private Degree degree;
 

@@ -84,14 +84,14 @@
     <form action="#" th:action="@{/addTerm}" th:object="${term}"
           method="POST">
         <label>
-            <input type="text" th:field="*{hour}"
-                   placeholder="Term's hour">
+            <input type="number" th:field="*{hour}"
+                   placeholder=8>
         </label>
         <div th:if="${#fields.hasErrors('hour')}" th:errors="*{hour}">Hour error</div>
         <br>
         <label>
-            <input type="text" th:field="*{minute}"
-                   placeholder="Term's minute">
+            <input type="number" th:field="*{minute}"
+                   placeholder=0>
         </label>
         <div th:if="${#fields.hasErrors('minute')}" th:errors="*{minute}">Minute error</div>
         <br>

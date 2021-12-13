@@ -1,6 +1,7 @@
 package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.model.Professor;
+import net.javaguides.springboot.model.domain.Degree;
 import net.javaguides.springboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,7 @@ public class ProfessorController {
 		// create model attribute to bind form data
 		Professor professor = new Professor();
 		model.addAttribute("professor", professor);
+		model.addAttribute("degrees", Degree.values());
 		return "new_professor";
 	}
 	
