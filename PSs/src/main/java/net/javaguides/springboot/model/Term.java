@@ -19,7 +19,7 @@ public class Term {
     @Column(name = "minute")
     private int minute;
 
-    @Column(name = "weeksday")
+    @Enumerated
     private Day weeksDay;
 
     @Enumerated(EnumType.ORDINAL)

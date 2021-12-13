@@ -1,14 +1,20 @@
 package net.javaguides.springboot.controller;
 
 
+import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.model.Term;
+import net.javaguides.springboot.model.domain.AmountOfHours;
+import net.javaguides.springboot.model.domain.Day;
+import net.javaguides.springboot.model.domain.Degree;
 import net.javaguides.springboot.service.TermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -17,21 +23,34 @@ public class TermController {
     @Autowired
     private TermService termService;
 
-    // display list of terms
-//    @GetMapping("/term")
-//    public String viewHomePage(Model model) {
-//        return findPaginated(1, "name", "asc", model);
-//
-//    }
+//     display list of terms
+    @GetMapping("/term")
+    public String viewHomePage(Model model) {
+        model.addAttribute("allTermsFromDB", termService.getAllTerms());
 
-    //todo: Terms can't have their "main" page because they are different for every subject, it is best if they redirect
-    // later to e.g. class/terms instead of just terms/
+        // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
+        return "indexterm";
+
+    }
+
+    @PostMapping("/addTerm")
+    public String addStudent(@ModelAttribute("term") @Valid Term term, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            System.out.println("Validation error found!");
+            return "new_term";
+        }
+        termService.saveTerm(term);
+        return "redirect:/term";
+    }
+
 
     @GetMapping("/showNewTermForm")
     public String showNewTermForm(Model model) {
         // create model attribute to bind form data
         Term term = new Term();
         model.addAttribute("term", term);
+        model.addAttribute("amountOfHours", AmountOfHours.values());
+        model.addAttribute("weeksDay", Day.values());
         return "new_term";
     }
 
