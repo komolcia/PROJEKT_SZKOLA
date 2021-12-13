@@ -1,23 +1,79 @@
 package net.javaguides.springboot.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "group")
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "year")
     private int year;
-    @Column(name = "semester")
     private int semester;
-    @ManyToOne
+    @OneToOne
+    @Autowired
     private Professor professor;
-    @Column(name = "number")
     private int number;
-    @ManyToOne
+    @OneToOne
+    @Autowired
     private Term term;
-    @Column(name = "place")
     private String place;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public Term getTerm() {
+        return term;
+    }
+
+    public void setTerm(Term term) {
+        this.term = term;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
 }

@@ -2,6 +2,8 @@ package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.model.Group;
 import net.javaguides.springboot.service.GroupService;
+import net.javaguides.springboot.service.ProfessorService;
+import net.javaguides.springboot.service.TermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,12 +16,17 @@ import java.util.List;
 public class GroupController {
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private ProfessorService professorService;
+    @Autowired
+    private TermService termService;
 
-
-    // display list of admins
     @GetMapping("/group")
-    public String viewHomePage(Model model) {
-        return findPaginated(1, "name", "asc", model);
+    public String students(Model model){
+        model.addAttribute("allGroupsFromDB", groupService.getAllGroups());
+
+        // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
+        return "indexgroup";
     }
 
     @GetMapping("/showNewGroupForm")
@@ -27,6 +34,8 @@ public class GroupController {
         // create model attribute to bind form data
         Group Group = new Group();
         model.addAttribute("group", Group);
+        model.addAttribute("professors", professorService.getAllProfessors());
+        model.addAttribute("terms", termService.getAllTerms());
         return "new_group";
     }
 

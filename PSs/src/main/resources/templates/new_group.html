@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Student Management System</title>
+    <title>Group Management System</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -77,38 +77,47 @@
     <!-- Background image -->
 </header>
 <div class="container">
-    <h1>Student Management System</h1>
+    <h1>Group Management System</h1>
     <hr>
-    <h2>Save Student</h2>
+    <h2>Save Group</h2>
 
-    <form action="#" th:action="@{/addStudent}" th:object="${student}"
+    <form action="#" th:action="@{/saveGroup}" th:object="${group}"
           method="POST">
         <label>
-            <input type="text" th:field="*{firstName}"
-                   placeholder="Student First Name">
+            <input type="number" th:field="*{year}"
+                   placeholder="Group Year">
         </label>
-        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName error</div>
+        <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
         <br>
         <label>
-            <input type="text" th:field="*{lastName}"
-                   placeholder="Student Last Name">
+            <input type="number" th:field="*{semester}"
+                   placeholder="Group Semester">
         </label>
-        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
+        <div th:if="${#fields.hasErrors('semester')}" th:errors="*{semester}">Semester error</div>
         <br>
-        <input type="text" th:field="*{email}"
-               placeholder="Student Email">
-        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+        <label>
+            <input type="number" th:field="*{number}"
+                   placeholder="Group Number">
+        </label>
+        <div th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number error</div>
         <br>
-        <select th:field="*{degree}">
-            <option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
+        <label>
+            <input type="text" th:field="*{place}"
+                   placeholder="Group's Room">
+        </label>
+        <div th:if="${#fields.hasErrors('place')}" th:errors="*{place}">Room error</div>
+        <br>
+        <select th:field="*{professor}">
+            <option th:each="professor : ${professors}" th:value="${professor.id}"
+                    th:text="${professor.firstName} + ' ' + ${professor.lastName}"></option>
         </select>
         <br>
-        <select th:field="*{adress}">
-            <option th:each="adress : ${adresses}" th:value="${adress.id}"
-                    th:text="${adress.streetnumber} + ' '+ ${adress.postalcode}"></option>
+        <select th:field="*{term}">
+            <option th:each="term : ${terms}" th:value="${term.id}"
+                    th:text="${term.hour} + ' : ' + ${term.minute} + ' on ' + ${term.weeksDay}"></option>
         </select>
         <br>
-        <button type="submit"> Save Student</button>
+        <button type="submit"> Save Group</button>
 
         <div th:if="${#fields.hasErrors('*')}">
             <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
@@ -119,7 +128,7 @@
 
     <hr>
 
-    <a th:href="@{/student}"> Back to Student List</a>
+    <a th:href="@{/group}"> Back to Group List</a>
 </div>
 </body>
 </html>

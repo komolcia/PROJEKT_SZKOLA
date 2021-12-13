@@ -3,10 +3,12 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Student Management System</title>
+
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+
 </head>
 <body>
 <header>
@@ -76,50 +78,36 @@
     </div>
     <!-- Background image -->
 </header>
-<div class="container">
-    <h1>Student Management System</h1>
-    <hr>
-    <h2>Save Student</h2>
+<table class="table  table-dark">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Year</th>
+        <th scope="col">Semester</th>
+        <th scope="col">Number</th>
+        <th scope="col">Professor</th>
+        <th scope="col">Place</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
 
-    <form action="#" th:action="@{/addStudent}" th:object="${student}"
-          method="POST">
-        <label>
-            <input type="text" th:field="*{firstName}"
-                   placeholder="Student First Name">
-        </label>
-        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName error</div>
-        <br>
-        <label>
-            <input type="text" th:field="*{lastName}"
-                   placeholder="Student Last Name">
-        </label>
-        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
-        <br>
-        <input type="text" th:field="*{email}"
-               placeholder="Student Email">
-        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
-        <br>
-        <select th:field="*{degree}">
-            <option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
-        </select>
-        <br>
-        <select th:field="*{adress}">
-            <option th:each="adress : ${adresses}" th:value="${adress.id}"
-                    th:text="${adress.streetnumber} + ' '+ ${adress.postalcode}"></option>
-        </select>
-        <br>
-        <button type="submit"> Save Student</button>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="group : ${allGroupsFromDB}">
+        <td th:text="${group.id}"></td>
+        <td th:text="${group.year}"></td>
+        <td th:text="${group.semester}"></td>
+        <td th:text="${group.number}"></td>
+        <td th:text="${group.professor.firstName + ' '+ group.professor.lastName}"></td>
+        <td th:text="${group.place}"></td>
+        <td><a th:href="@{/deleteGroup/{id}(id=${group.id})}" >Delete</a></td>
+        <td><a th:href="@{/showFormForUpdateGroup/{id}(id=${group.id})}">Update</a></td>
+    </tr>
+    </tbody>
+</table>
+<center>
+<h2><a  th:href = "@{/showNewGroupForm}" color="black"> New Group</a></h2>
+</center>
 
-        <div th:if="${#fields.hasErrors('*')}">
-            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-        </div>
-
-    </form>
-
-
-    <hr>
-
-    <a th:href="@{/student}"> Back to Student List</a>
-</div>
 </body>
 </html>
