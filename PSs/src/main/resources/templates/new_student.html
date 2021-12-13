@@ -88,21 +88,25 @@
                    placeholder="Student First Name">
         </label>
         <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName error</div>
+        <br>
         <label>
             <input type="text" th:field="*{lastName}"
                    placeholder="Student Last Name">
         </label>
         <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
+        <br>
         <input type="text" th:field="*{email}"
                placeholder="Student Email">
         <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+        <br>
         <select th:field="*{degree}">
             <option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
         </select>
+        <br>
         <select th:field="*{adress}">
-            <option th:each="adress : ${adresses}" th:value="${adress.id}" th:text="${adress.city}"></option>
+            <option th:each="adress : ${adresses}" th:value="${adress.id}" th:text="${adress.streetnumber} + ${adress.postalcode}"></option>
         </select>
-
+        <br>
         <button type="submit"> Save Student</button>
 
         <div th:if="${#fields.hasErrors('*')}">
