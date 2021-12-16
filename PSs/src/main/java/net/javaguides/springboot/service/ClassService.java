@@ -14,5 +14,4 @@ public interface ClassService {
 
     void deleteClassById(long id);
 
-    Page<Class> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

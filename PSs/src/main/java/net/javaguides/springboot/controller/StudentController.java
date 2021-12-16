@@ -4,17 +4,14 @@ import javax.validation.Valid;
 
 import net.javaguides.springboot.model.Adress;
 import net.javaguides.springboot.repository.AdressRepository;
+import net.javaguides.springboot.repository.ClassRepository;
 import net.javaguides.springboot.service.AdressService;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import net.javaguides.springboot.service.StudentService;
 import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.model.Adress;
@@ -29,6 +26,7 @@ public class StudentController {
 	private final StudentService studentService;
 	@Autowired public AdressService adressService;
 	@Autowired public AdressRepository adressRepository;
+	@Autowired public ClassRepository classRepository;
 	public StudentController(@Autowired StudentService studentService) {
 		this.studentService = studentService;
 	}
@@ -40,6 +38,8 @@ public class StudentController {
 		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
 		return "indexstudent";
 	}
+
+
 	@PostMapping("/addStudent")
 	public String addStudent(@ModelAttribute("student") @Valid Student student,BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
@@ -47,6 +47,7 @@ public class StudentController {
 			return "new_student";
 		}
 		studentService.addStudent(student);
+
 		return "redirect:/student";
 	}
 
@@ -59,6 +60,7 @@ public class StudentController {
 		model.addAttribute("student", student);
 		model.addAttribute("degrees",Degree.values());
 		model.addAttribute("adresses",adressRepository.findAll() );
+		model.addAttribute("classess", classRepository.findAll());
 		return "new_student";
 	}
 	@GetMapping("/deleteStudent/{id}")
@@ -73,6 +75,7 @@ public class StudentController {
 		model.addAttribute("student", student);
 		model.addAttribute("degrees",Degree.values());
 		model.addAttribute("adresses",adressRepository.findAll() );
+		model.addAttribute("classess",classRepository.findAll());
 		return "update_student";
 	}
 
@@ -82,6 +85,7 @@ public class StudentController {
 		studentService.updateStudent(student);
 		return "redirect:/student";
 	}
+
 
 
 }

@@ -87,6 +87,8 @@
         <th scope="col">Email</th>
         <th scope="col">Degree</th>
         <th scope="col">Address</th>
+        <th scope="col">Classes</th>
+
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
 
@@ -100,6 +102,9 @@
         <td th:text="${student.email}"></td>
         <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
         <td th:text="${student.adress.city}"></td>
+        <td ><span th:each="class,iterStat : ${student.classes}">
+					<span th:text="${class.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span></td>
         <td><a th:href="@{/deleteStudent/{id}(id=${student.id})}" >Delete</a></td>
         <td><a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}">Update</a></td>
     </tr>

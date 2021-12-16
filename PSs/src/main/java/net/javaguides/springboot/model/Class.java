@@ -13,26 +13,21 @@ public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    public Long id;
     @Column(name = "name")
-    private String name;
-    @OneToMany
-    @Column(name = "professors")
-    private List<Professor> professors = new LinkedList<>();
-    @OneToMany
-    @Column(name = "groups")
-    private List<Group> groups = new LinkedList<>();
-    @Column(name = "typeofclasses")
-    private TypeOfClasses typeOfClasses;
-    @Column(name = "amountofhours")
-    private AmountOfHours amountOfHours;
+    public String name;
+
     @Column(name = "description")
-    private String description;
+    public String description;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+
+    public Student student;
 
     @Column(name = "maxamountofstudents")
-    private int maxAmountOfStudents;
+    public int maxAmountOfStudents;
     @Column(name = "currentamountofstudents")
-    private int currentAmountOfStudents;
+    public int currentAmountOfStudents;
 
     public Long getId() {
         return id;
@@ -50,36 +45,20 @@ public class Class {
         this.name = name;
     }
 
-    public List<Professor> getProfessors() {
-        return professors;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setProfessors(List<Professor> professors) {
-        this.professors = professors;
+    public void setStudent(Student student) {
+        this.student = student;
     }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
-
-    public TypeOfClasses getTypeOfClasses() {
-        return typeOfClasses;
-    }
-
-    public void setTypeOfClasses(TypeOfClasses typeOfClasses) {
-        this.typeOfClasses = typeOfClasses;
-    }
-
-    public AmountOfHours getAmountOfHours() {
-        return amountOfHours;
-    }
-
-    public void setAmountOfHours(AmountOfHours amountOfHours) {
-        this.amountOfHours = amountOfHours;
+    public Class(){}
+    public Class(long id,String name,String description,int maxAmountOfStudents,int currentAmountOfStudents){
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.currentAmountOfStudents=  currentAmountOfStudents;
+        this.maxAmountOfStudents=maxAmountOfStudents;
     }
 
     public String getDescription() {

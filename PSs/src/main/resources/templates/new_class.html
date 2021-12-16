@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="ISO-8859-1">
     <title>Student Management System</title>
@@ -77,46 +77,41 @@
     <!-- Background image -->
 </header>
 <div class="container">
-    <h1>Student Management System</h1>
+    <h1>Class Management System</h1>
     <hr>
-    <h2>Save Student</h2>
+    <h2>Save Class</h2>
 
-    <form action="#" th:action="@{/addStudent}" th:object="${student}"
+    <form action="#" th:action="@{/addClass}" th:object="${class}"
           method="POST">
         <label>
-            <input type="text" th:field="*{firstName}"
-                   placeholder="Student First Name">
+            <input type="number" th:field="*{id}"
+                   placeholder="Id">
         </label>
-        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName error</div>
+     <br>
+        <label>
+            <input type="text" th:field="*{name}"
+                   placeholder="Name">
+        </label>
+
         <br>
         <label>
-            <input type="text" th:field="*{lastName}"
-                   placeholder="Student Last Name">
+        <input type="text" th:field="*{description}"
+               placeholder="Description">
         </label>
-        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
-        <br>
-        <input type="text" th:field="*{email}"
-               placeholder="Student Email">
-        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
-        <br>
-        <select th:field="*{degree}">
-            <option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
-        </select>
-        <br>
-        <select th:field="*{adress}">
-            <option th:each="adress : ${adresses}" th:value="${adress.id}"
-                    th:text="${adress.streetnumber} + ' '+ ${adress.postalcode}"></option>
-        </select>
-        <p></p>
+        <label>
+            <input type="number" th:field="*{maxAmountOfStudents}"
+                   placeholder="maxAmountOfStudents">
+        </label>
+        <label>
+            <input type="number" th:field="*{currentAmountOfStudents}"
+                   placeholder="currentAmountOfStudents">
+        </label>
 
-        <select th:field="*{classes}" class="form-control" multiple="multiple">
-            <option th:each="classes: ${classess}" th:value="${classes.id}" th:text="${classes.name}"></option>
-        </select>
 
 
 
         <br>
-        <button type="submit"> Save Student</button>
+        <button type="submit"> Save Class</button>
 
         <div th:if="${#fields.hasErrors('*')}">
             <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
@@ -127,7 +122,7 @@
 
     <hr>
 
-    <a th:href="@{/student}"> Back to Student List</a>
+    <a th:href="@{/class}"> Back to Class List</a>
 </div>
 </body>
 </html>

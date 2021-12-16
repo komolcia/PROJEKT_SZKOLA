@@ -2,15 +2,23 @@ package net.javaguides.springboot.model;
 
 import net.javaguides.springboot.model.domain.Degree;
 
+import net.javaguides.springboot.model.Class;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import org.hibernate.annotations.IndexColumn;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
+@Table(name = "student")
 public class Student {
     @NotNull
 
@@ -34,17 +42,22 @@ public class Student {
 
     @Autowired
     private Adress adress;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
 
-    public Student(String firstname, String lastName, String email, Degree degree,Adress adress) {
+    public Set<Class> classes = new HashSet<Class>(0);
+
+
+    public Student(String firstname, String lastName, String email, Degree degree, Adress adress, Set<Class> classes) {
         this.adress=adress;
         this.email = email;
         this.degree = degree;
         this.firstName = firstname;
         this.lastName = lastName;
+        this.classes=classes;
 
     }
 
-    public Student(long id, String firstname, String lastName, String email, Degree degree,Adress adress) {
+    public Student(long id, String firstname, String lastName, String email, Degree degree,Adress adress,Set<Class> classes) {
         this.adress=adress;
         this.id = id;
         this.degree = degree;
@@ -52,12 +65,20 @@ public class Student {
         this.email = email;
         this.firstName = firstname;
         this.lastName = lastName;
+        this.classes=classes;
 
     }
 
     public Student() {
     }
 
+    public void setClasses(Set<Class> classes) {
+        this.classes = classes;
+    }
+
+    public Set<Class> getClasses() {
+        return classes;
+    }
 
     public Degree getDegree() {
         return degree;
