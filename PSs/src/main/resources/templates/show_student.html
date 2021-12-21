@@ -91,29 +91,32 @@
 
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
-        <th scope="col">Details</th>
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="student : ${allStudentsFromDB}">
-        <td th:text="${student.id}"></td>
-        <td th:text="${student.firstName}"></td>
-        <td th:text="${student.lastName}"></td>
-        <td th:text="${student.email}"></td>
-        <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
-        <td th:text="${student.adress.city}"></td>
-        <td ><span th:each="class,iterStat : ${student.classes}">
+
+    <td th:text="${student.id}"></td>
+    <td th:text="${student.firstName}"></td>
+    <td th:text="${student.lastName}"></td>
+    <td th:text="${student.email}"></td>
+    <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
+    <td th:text="${student.adress.city}"></td>
+    <td><span th:each="class,iterStat : ${studentClasses}">
 					<span th:text="${class.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
 				</span></td>
-        <td><a th:href="@{/deleteStudent/{id}(id=${student.id})}" >Delete</a></td>
-        <td><a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}">Update</a></td>
-        <td><a th:href="@{/student/{id}(id=${student.id})}">See details</a></td>
-    </tr>
+    <td><a th:href="@{/deleteStudent/{id}(id=${student.id})}">Delete</a></td>
+    <td><a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}">Update</a></td>
+
     </tbody>
 </table>
+<h1>classes: </h1>
+<ul th:each="class : ${studentClasses}">
+    <li th:text="${class.name}"></li>
+    <li th:text="${class.id}"></li>
+</ul>
 <center>
-<h2><a  th:href = "@{/showNewStudentForm}" color="black"> New Student</a></h2>
+    <h2><a th:href="@{/student}" color="black"> Back to student list</a></h2>
 </center>
 
 </body>

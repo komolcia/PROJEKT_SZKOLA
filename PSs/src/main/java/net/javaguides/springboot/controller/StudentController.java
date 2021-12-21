@@ -16,7 +16,9 @@ import net.javaguides.springboot.service.StudentService;
 import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.model.Adress;
 import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.model.Class;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,19 @@ public class StudentController {
 		studentService.addStudent(student);
 
 		return "redirect:/student";
+	}
+
+	@GetMapping("/student/{id}")
+	public String showStudent(@PathVariable Long id, Model model){
+		Student student = this.studentService.getStudentById(id);
+
+		List<Class> studentClasses = new ArrayList<>(student.classes);
+		model.addAttribute("student", student);
+		model.addAttribute("studentClasses", this.classRepository.findAll());
+
+		System.out.println(this.classRepository.findAll());
+
+		return "show_student";
 	}
 
 	@GetMapping("/showNewStudentForm")
