@@ -102,7 +102,7 @@
         <td th:text="${student.lastName}"></td>
         <td th:text="${student.email}"></td>
         <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
-        <td th:text="${student.adress.city}"></td>
+        <td th:text="${student.adress.streetnumber} + ', '+ ${student.adress.postalcode}"></td>
         <td ><span th:each="class,iterStat : ${student.classes}">
 					<span th:text="${class.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
 				</span></td>
