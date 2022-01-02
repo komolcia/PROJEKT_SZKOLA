@@ -2,13 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Student Management System</title>
-
+    <title>StudentClasses Management System</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-
 </head>
 <body>
 <header>
@@ -67,7 +65,7 @@
         <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
             <div class="d-flex justify-content-center align-items-center h-100">
                 <div class="text-white">
-                    <h1 class="mb-3">Student's Portal</h1>
+                    <h1 class="mb-3">StudentClasses's Portal</h1>
                     <h4 class="mb-3">University of Gdansk</h4>
                     <a class="btn btn-outline-light btn-lg" href="#!" role="button"
                     >Perfect place</a
@@ -78,43 +76,62 @@
     </div>
     <!-- Background image -->
 </header>
-<table class="table  table-dark">
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">FirstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">Email</th>
-        <th scope="col">Degree</th>
-        <th scope="col">Address</th>
+<div class="container">
+    <h1>StudentClasses Management System</h1>
+    <hr>
+    <h2>Save StudentClasses</h2>
+
+    <form action="#" th:action="@{/addStudentClasses}" th:object="${studentclasses}"
+          method="POST">
+        <select th:field="*{student}">
+            <option th:each="student : ${students}" th:value="${student.id}"
+                    th:text="${student.firstName} + ' '+ ${student.lastName}"></option>
+        </select>
+        <p></p>
+    
+
+        <select th:field="*{classes}" >
+            <option th:each="classes: ${classess}" th:value="${classes.id}" th:text="${classes.name}"></option>
+        </select>
+        <p></p>
+        <select th:field="*{typeOfClasses}">
+            <option th:each="typeOfClasses : ${typeofclassess}" th:value="${typeOfClasses}" th:text="${typeOfClasses}"></option>
+        </select>
+        <br>
+        <p></p>
+        <select th:field="*{amountOfHours}">
+            <option th:each="amountofhour : ${amountofhours}" th:value="${amountofhour}" th:text="${amountofhour}"></option>
+        </select>
+        <br>
+
+        <p></p>
+<p></p>    <select th:field="*{gradeEnum}">
+        <option th:each="gradeenum : ${gradeenums}" th:value="${gradeenum}" th:text="${gradeenum}"></option>
+    </select>
+        <br>
+
+        <p></p>
 
 
-        <th scope="col">Delete</th>
-        <th scope="col">Update</th>
-        <th scope="col">Details</th>
+        <select th:field="*{professor}">
+            <option th:each="professor : ${professors}" th:value="${professor.id}"
+                    th:text="${professor.firstName} + ' '+ ${professor.lastName}"></option>
+        </select>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="student : ${allStudentsFromDB}">
-        <td th:text="${student.id}"></td>
-        <td th:text="${student.firstName}"></td>
-        <td th:text="${student.lastName}"></td>
-        <td th:text="${student.email}"></td>
-        <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
-        <td th:text="${student.adress.streetnumber} + ', '+ ${student.adress.postalcode}"></td>
-        <td><a th:href="@{/deleteStudent/{id}(id=${student.id})}" >Delete</a></td>
-        <td><a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}">Update</a></td>
-        <td><a th:href="@{/student/{id}(id=${student.id})}">See details</a></td>
-    </tr>
-    </tbody>
-</table>
-<center>
-<h2><a  th:href = "@{/showNewStudentForm}" color="black"> New Student</a></h2>
-</center>
-<center>
-    <h1><a  th:href = "@{/studentclasses}" color="black"> Student Classes</a></h1>
-</center>
+        <p></p>
+        <br>
+        <button type="submit"> Save Student Class</button>
 
+        <div th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+        <p></p>
+    </form>
+
+
+    <hr>
+
+    <a th:href="@{/studentclasses}"> Back to StudentClasses List</a>
+</div>
 </body>
 </html>

@@ -1,6 +1,10 @@
 package net.javaguides.springboot.model;
 
+import net.javaguides.springboot.model.domain.Degree;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "deansofficeemployees")
@@ -18,7 +22,29 @@ public class DeansOfficeEmployee {
 	
 	@Column(name = "email")
 	private String email;
+	@NotNull
 
+	private Degree degree;
+	@OneToOne(targetEntity = net.javaguides.springboot.model.Adress.class)
+
+	@Autowired
+	private Adress adress;
+
+	public Degree getDegree() {
+		return degree;
+	}
+
+	public void setDegree(Degree degree) {
+		this.degree = degree;
+	}
+
+	public Adress getAdress() {
+		return adress;
+	}
+
+	public void setAdress(Adress adress) {
+		this.adress = adress;
+	}
 
 	public long getId() {
 		return id;

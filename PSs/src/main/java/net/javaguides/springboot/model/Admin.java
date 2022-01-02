@@ -1,5 +1,7 @@
 package net.javaguides.springboot.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,18 @@ public class Admin {
 	
 	@Column(name = "email")
 	private String email;
+	@OneToOne(targetEntity = net.javaguides.springboot.model.Adress.class)
+
+	@Autowired
+	private Adress adress;
+
+	public void setAdress(Adress adress) {
+		this.adress = adress;
+	}
+
+	public Adress getAdress() {
+		return adress;
+	}
 
 	public long getId() {
 		return id;

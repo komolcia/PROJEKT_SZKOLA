@@ -81,39 +81,36 @@
 <table class="table  table-dark">
     <thead>
     <tr>
-        <th scope="col">Id</th>
-        <th scope="col">FirstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">Email</th>
-        <th scope="col">Degree</th>
-        <th scope="col">Address</th>
+        <th scope="col">Student</th>
+        <th scope="col">Class</th>
+        <th scope="col">Type Of Classes</th>
+        <th scope="col">Amount Of Hours</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Professor</th>
 
 
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
-        <th scope="col">Details</th>
+
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="student : ${allStudentsFromDB}">
-        <td th:text="${student.id}"></td>
-        <td th:text="${student.firstName}"></td>
-        <td th:text="${student.lastName}"></td>
-        <td th:text="${student.email}"></td>
-        <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
-        <td th:text="${student.adress.streetnumber} + ', '+ ${student.adress.postalcode}"></td>
-        <td><a th:href="@{/deleteStudent/{id}(id=${student.id})}" >Delete</a></td>
-        <td><a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}">Update</a></td>
-        <td><a th:href="@{/student/{id}(id=${student.id})}">See details</a></td>
+    <tr th:each="studentclasses : ${allStudentClassessFromDB}">
+        <td th:text="${studentclasses.student.lastName} +' '+ ${studentclasses.student.firstName}"></td>
+        <td th:text="${studentclasses.classes.name}"></td>
+        <td th:text="${#strings.listJoin(studentclasses.typeOfClasses, ',')}"></td>
+        <td th:text="${#strings.listJoin(studentclasses.amountOfHours, ',')}"></td>
+        <td th:text="${#strings.listJoin(studentclasses.gradeEnum, ',')}"></td>
+        <td th:text="${studentclasses.professor.lastName} +' '+ ${studentclasses.professor.firstName}"></td>
+        <td><a th:href="@{/deleteStudentClasses/{id}(id=${studentclasses.id})}" >Delete</a></td>
+        <td><a th:href="@{/showFormForUpdateStudentClasses/{id}(id=${studentclasses.id})}">Update</a></td>
+\
     </tr>
     </tbody>
 </table>
 <center>
-<h2><a  th:href = "@{/showNewStudentForm}" color="black"> New Student</a></h2>
-</center>
-<center>
-    <h1><a  th:href = "@{/studentclasses}" color="black"> Student Classes</a></h1>
+<h2><a  th:href = "@{/showNewStudentClassesForm}" color="black"> New StudentClasses</a></h2>
 </center>
 
 </body>

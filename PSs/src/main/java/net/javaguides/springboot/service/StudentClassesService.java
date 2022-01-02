@@ -1,14 +1,15 @@
 package net.javaguides.springboot.service;
 
+import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.model.StudentClasses;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface StudentClassesService {
-    List<StudentClasses> getAllStudentClasses();
-    void saveStudentClasses(StudentClasses studentClasses);
+    StudentClasses addStudentClasses(StudentClasses studentclasses);
+    List<StudentClasses> getAllStudentClassess();
     StudentClasses getStudentClassesById(long id);
-    void deleteStudentClassesById(long id);
-    Page<StudentClasses> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+    void updateStudentClasses(StudentClasses studentclasses);
+    void deleteStudentClasses(long id);
 }

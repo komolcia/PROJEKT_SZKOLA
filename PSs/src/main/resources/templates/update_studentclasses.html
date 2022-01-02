@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Student Management System</title>
-	<link rel="stylesheet"
-		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-		  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-		  crossorigin="anonymous">
+<meta charset="ISO-8859-1">
+<title>Student Management System</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
 <header>
@@ -76,55 +75,64 @@
 	</div>
 	<!-- Background image -->
 </header>
-<div class="container">
-	<h1>Admin Management System</h1>
-	<hr>
-	<h2>Save Admin</h2>
+	<div class="container">
+		<h1>StudentClasses Management System</h1>
+		<hr>
+		<h2>Update StudentClasses</h2>
+		<form action="#" th:action="@{/updateStudentClasses}" th:object="${studentclasses}"
+			  method="POST">
+			<input type="number" th:field="*{id}"
+				   placeholder="Id" >
+			<select th:field="*{student}">
+				<option th:each="student : ${students}" th:value="${student.id}"
+						th:text="${student.firstName} + ' '+ ${student.lastName}"></option>
+			</select>
+			<p></p>
 
-	<form action="#" th:action="@{/addAdmin}" th:object="${admin}"
-		  method="POST">
-		<label>
-			<input type="text" th:field="*{firstName}"
-				   placeholder="Admin First Name">
-		</label>
-		<div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName error</div>
-		<br>
-		<label>
-			<input type="text" th:field="*{lastName}"
-				   placeholder="Admin Last Name">
-		</label>
-		<div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
-		<br>
-		<input type="text" th:field="*{email}"
-			   placeholder="Admin Email">
-		<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
-		<br>
-		<select th:field="*{degree}">
-			<option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
+
+			<select th:field="*{classes}" >
+				<option th:each="classes: ${classess}" th:value="${classes.id}" th:text="${classes.name}"></option>
+			</select>
+			<p></p>
+			<select th:field="*{typeOfClasses}">
+				<option th:each="typeOfClasses : ${typeofclassess}" th:value="${typeOfClasses}" th:text="${typeOfClasses}"></option>
+			</select>
+			<br>
+			<p></p>
+			<select th:field="*{amountOfHours}">
+				<option th:each="amountofhour : ${amountofhours}" th:value="${amountofhour}" th:text="${amountofhour}"></option>
+			</select>
+			<br>
+
+			<p></p>
+			<p></p>    <select th:field="*{gradeEnum}">
+			<option th:each="gradeenum : ${gradeenums}" th:value="${gradeenum}" th:text="${gradeenum}"></option>
 		</select>
-		<br>
-		<select th:field="*{adress}">
-			<option th:each="adress : ${adresses}" th:value="${adress.id}"
-					th:text="${adress.streetnumber} + ' '+ ${adress.postalcode}"></option>
-		</select>
-		<p></p>
+			<br>
+
+			<p></p>
 
 
+			<select th:field="*{professor}">
+				<option th:each="professor : ${professors}" th:value="${professor.id}"
+						th:text="${professor.firstName} + ' '+ ${professor.lastName}"></option>
+			</select>
+
+			<p></p>
+			<br>
+			<button type="submit"> Save Student Class</button>
+
+			<div th:if="${#fields.hasErrors('*')}">
+				<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+			</div>
+			<p></p>
+			<button type="submit" > Save Student Classes</button>
+		</form>
 
 
-		<br>
-		<button type="submit"> Save Admin</button>
-
-		<div th:if="${#fields.hasErrors('*')}">
-			<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-		</div>
-
-	</form>
-
-
-	<hr>
-
-	<a th:href="@{/admin}"> Back to Admin List</a>
-</div>
+		<hr>
+		
+		<a th:href = "@{/}"> Back to Student Classes List</a>
+	</div>
 </body>
 </html>

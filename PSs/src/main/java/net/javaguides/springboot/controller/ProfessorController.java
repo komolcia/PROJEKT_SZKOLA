@@ -1,14 +1,20 @@
 package net.javaguides.springboot.controller;
 
+import net.javaguides.springboot.model.Class;
+import net.javaguides.springboot.model.Professor;
 import net.javaguides.springboot.model.Professor;
 import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,68 +22,73 @@ public class ProfessorController {
 
 	@Autowired
 	private ProfessorService professorService;
+	@Autowired public AdressRepository adressRepository;
 	
 	// display list of professors
 	@GetMapping("/professor")
-	public String viewHomePage(Model model) {
-		return findPaginated(1, "firstName", "asc", model);		
+	public String professors(Model model){
+		model.addAttribute("allProfessorsFromDB", professorService.getAllProfessors());
+
+		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
+		return "indexprofessor";
 	}
-	
+
+
+	@PostMapping("/addProfessor")
+	public String addProfessor(@ModelAttribute("professor") @Valid Professor professor, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("Validation error found!");
+			return "new_professor";
+		}
+		professorService.addProfessor(professor);
+
+		return "redirect:/professor";
+	}
+
+	@GetMapping("/professor/{id}")
+	public String showProfessor(@PathVariable Long id, Model model){
+		Professor professor = this.professorService.getProfessorById(id);
+
+		model.addAttribute("professor", professor);
+
+
+		return "show_professor";
+	}
+
 	@GetMapping("/showNewProfessorForm")
 	public String showNewProfessorForm(Model model) {
 		// create model attribute to bind form data
 		Professor professor = new Professor();
+
+
 		model.addAttribute("professor", professor);
-		model.addAttribute("degrees", Degree.values());
+		model.addAttribute("degrees",Degree.values());
+		model.addAttribute("adresses",adressRepository.findAll() );
+
 		return "new_professor";
 	}
-	
-	@PostMapping("/saveProfessor")
-	public String saveProfessor(@ModelAttribute("professor") Professor professor) {
-		// save professor to database
-		professorService.saveProfessor(professor);
+	@GetMapping("/deleteProfessor/{id}")
+	public String deleteProfessor(@PathVariable long id){
+		professorService.deleteProfessor(id);
 		return "redirect:/professor";
 	}
-	
 	@GetMapping("/showFormForUpdateProfessor/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
-		
-		// get professor from the service
 		Professor professor = professorService.getProfessorById(id);
-		
-		// set professor as a model attribute to pre-populate the form
+
 		model.addAttribute("professor", professor);
+		model.addAttribute("degrees",Degree.values());
+		model.addAttribute("adresses",adressRepository.findAll() );
+
 		return "update_professor";
 	}
-	
-	@GetMapping("/deleteProfessor/{id}")
-	public String deleteProfessor(@PathVariable (value = "id") long id) {
-		
-		// call delete professor method 
-		this.professorService.deleteProfessorById(id);
+
+	@PostMapping("/updateProfessor")
+	public String updateProfessor(@ModelAttribute("professor") Professor professor){
+
+		professorService.updateProfessor(professor);
 		return "redirect:/professor";
 	}
-	
-	
-	@GetMapping("/pageProfessor/{pageNo}")
-	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
-			@RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDir,
-			Model model) {
-		int pageSize = 5;
-		
-		Page<Professor> page = professorService.findPaginated(pageNo, pageSize, sortField, sortDir);
-		List<Professor> listProfessors = page.getContent();
-		
-		model.addAttribute("currentPage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		
-		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		
-		model.addAttribute("listProfessors", listProfessors);
-		return "indexprofessor";
-	}
+
+
 }

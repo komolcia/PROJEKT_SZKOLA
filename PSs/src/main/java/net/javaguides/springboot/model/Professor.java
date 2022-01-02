@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import net.javaguides.springboot.model.domain.Degree;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -31,6 +32,18 @@ public class Professor {
 
     @Column(name = "degree")
     private Degree degree;
+    @OneToOne(targetEntity = net.javaguides.springboot.model.Adress.class)
+
+    @Autowired
+    private Adress adress;
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
+
+    public Adress getAdress() {
+        return adress;
+    }
 
     public Degree getDegree() {
         return degree;

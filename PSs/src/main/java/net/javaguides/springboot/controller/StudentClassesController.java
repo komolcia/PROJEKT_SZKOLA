@@ -1,82 +1,102 @@
 package net.javaguides.springboot.controller;
 
 
+import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.model.StudentClasses;
+import net.javaguides.springboot.model.domain.AmountOfHours;
+import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.model.domain.GradeEnum;
+import net.javaguides.springboot.model.domain.TypeOfClasses;
+import net.javaguides.springboot.repository.AdressRepository;
+import net.javaguides.springboot.repository.ClassRepository;
+import net.javaguides.springboot.repository.ProfessorRepository;
+import net.javaguides.springboot.repository.StudentRepository;
+import net.javaguides.springboot.service.AdressService;
 import net.javaguides.springboot.service.StudentClassesService;
+import net.javaguides.springboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import net.javaguides.springboot.model.Class;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class StudentClassesController {
-    @Autowired
-    private StudentClassesService StudentClassesService;
-
-    // display list of StudentClassess
-    @GetMapping("/studentClasses")
-    public String viewHomePage(Model model) {
-        return findPaginated(1, "firstName", "asc", model);
+    private final StudentClassesService studentclassesService;
+    @Autowired public StudentRepository studentRepository;
+    @Autowired public ProfessorRepository professorRepository;
+    @Autowired public ClassRepository classRepository;
+    public StudentClassesController(@Autowired StudentClassesService studentclassesService) {
+        this.studentclassesService = studentclassesService;
     }
+
+    @GetMapping("/studentclasses")
+    public String studentclassess(Model model){
+        model.addAttribute("allStudentClassessFromDB", studentclassesService.getAllStudentClassess());
+
+        // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
+        return "indexstudentclasses";
+    }
+
+
+    @PostMapping("/addStudentClasses")
+    public String addStudentClasses(@ModelAttribute("studentclasses") @Valid StudentClasses studentclasses, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            System.out.println("Validation error found!");
+            return "new_studentclasses";
+        }
+        studentclassesService.addStudentClasses(studentclasses);
+
+        return "redirect:/studentclasses";
+    }
+
+
 
     @GetMapping("/showNewStudentClassesForm")
     public String showNewStudentClassesForm(Model model) {
         // create model attribute to bind form data
-        StudentClasses StudentClasses = new StudentClasses();
-        model.addAttribute("StudentClasses", StudentClasses);
-        return "new_StudentClasses";
+        StudentClasses studentclasses = new StudentClasses();
+
+
+        model.addAttribute("studentclasses", studentclasses);
+        model.addAttribute("typeofclassess", TypeOfClasses.values());
+        model.addAttribute("gradeenums", GradeEnum.values());
+        model.addAttribute("amountofhours", AmountOfHours.values());
+        model.addAttribute("students",studentRepository.findAll() );
+        model.addAttribute("professors",professorRepository.findAll() );
+        model.addAttribute("classess", classRepository.findAll());
+        return "new_studentclasses";
     }
-
-    @PostMapping("/saveStudentClasses")
-    public String saveStudentClasses(@ModelAttribute("StudentClasses") StudentClasses StudentClasses) {
-        // save StudentClasses to database
-        StudentClassesService.saveStudentClasses(StudentClasses);
-        return "redirect:/StudentClasses";
-    }
-
-    @GetMapping("/showFormForUpdateStudentClasses/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
-
-        // get StudentClasses from the service
-        StudentClasses StudentClasses = StudentClassesService.getStudentClassesById(id);
-
-        // set StudentClasses as a model attribute to pre-populate the form
-        model.addAttribute("StudentClasses", StudentClasses);
-        return "update_StudentClasses";
-    }
-
     @GetMapping("/deleteStudentClasses/{id}")
-    public String deleteStudentClasses(@PathVariable(value = "id") long id) {
+    public String deleteStudentClasses(@PathVariable long id){
+        studentclassesService.deleteStudentClasses(id);
+        return "redirect:/studentclasses";
+    }
+    @GetMapping("/showFormForUpdateStudentClasses/{id}")
+    public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
+        StudentClasses studentclasses = studentclassesService.getStudentClassesById(id);
+        model.addAttribute("studentclasses", studentclasses);
+        model.addAttribute("typeofclassess", TypeOfClasses.values());
+        model.addAttribute("gradeenums", GradeEnum.values());
+        model.addAttribute("amountofhourss", AmountOfHours.values());
+        model.addAttribute("students",studentRepository.findAll() );
+        model.addAttribute("professors",professorRepository.findAll() );
+        model.addAttribute("classess", classRepository.findAll());
+        return "update_studentclasses";
+    }
 
-        // call delete StudentClasses method 
-        this.StudentClassesService.deleteStudentClassesById(id);
-        return "redirect:/StudentClasses";
+    @PostMapping("/updateStudentClasses")
+    public String updateStudentClasses(@ModelAttribute("studentclasses") StudentClasses studentclasses){
+
+        studentclassesService.updateStudentClasses(studentclasses);
+        return "redirect:/studentclasses";
     }
 
 
-    @GetMapping("/pageStudentClasses/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-                                @RequestParam("sortField") String sortField,
-                                @RequestParam("sortDir") String sortDir,
-                                Model model) {
-        int pageSize = 5;
-
-        Page<StudentClasses> page = StudentClassesService.findPaginated(pageNo, pageSize, sortField, sortDir);
-        List<StudentClasses> listStudentClassess = page.getContent();
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("listStudentClassess", listStudentClassess);
-        return "indexStudentClasses";
-    }
 }

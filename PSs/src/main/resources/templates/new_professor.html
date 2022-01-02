@@ -81,7 +81,7 @@
 	<hr>
 	<h2>Save Professor</h2>
 
-	<form action="#" th:action="@{/saveProfessor}" th:object="${professor}"
+	<form action="#" th:action="@{/addProfessor}" th:object="${professor}"
 		  method="POST">
 		<label>
 			<input type="text" th:field="*{firstName}"
@@ -102,6 +102,15 @@
 		<select th:field="*{degree}">
 			<option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
 		</select>
+		<br>
+		<select th:field="*{adress}">
+			<option th:each="adress : ${adresses}" th:value="${adress.id}"
+					th:text="${adress.streetnumber} + ' '+ ${adress.postalcode}"></option>
+		</select>
+		<p></p>
+
+
+
 		<br>
 		<button type="submit"> Save Professor</button>
 

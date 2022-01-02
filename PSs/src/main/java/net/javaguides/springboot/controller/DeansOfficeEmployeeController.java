@@ -1,13 +1,20 @@
 package net.javaguides.springboot.controller;
 
+import net.javaguides.springboot.model.Class;
 import net.javaguides.springboot.model.DeansOfficeEmployee;
+import net.javaguides.springboot.model.DeansOfficeEmployee;
+import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.service.DeansOfficeEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -15,67 +22,74 @@ public class DeansOfficeEmployeeController {
 
 	@Autowired
 	private DeansOfficeEmployeeService deansofficeemployeeService;
+	@Autowired public AdressRepository adressRepository;
 	
 	// display list of deansofficeemployees
 	@GetMapping("/deansofficeemployee")
-	public String viewHomePage(Model model) {
-		return findPaginated(1, "firstName", "asc", model);		
+	public String deansofficeemployees(Model model){
+		model.addAttribute("allDeansOfficeEmployeesFromDB", deansofficeemployeeService.getAllDeansOfficeEmployees());
+
+		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
+		return "indexdeansofficeemployee";
 	}
-	
+
+
+	@PostMapping("/addDeansOfficeEmployee")
+	public String addDeansOfficeEmployee(@ModelAttribute("deansofficeemployee") @Valid DeansOfficeEmployee deansofficeemployee, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("Validation error found!");
+			return "new_deansofficeemployee";
+		}
+		deansofficeemployeeService.addDeansOfficeEmployee(deansofficeemployee);
+
+		return "redirect:/deansofficeemployee";
+	}
+
+	@GetMapping("/deansofficeemployee/{id}")
+	public String showDeansOfficeEmployee(@PathVariable Long id, Model model){
+		DeansOfficeEmployee deansofficeemployee = this.deansofficeemployeeService.getDeansOfficeEmployeeById(id);
+
+		model.addAttribute("deansofficeemployee", deansofficeemployee);
+
+
+
+		return "show_deansofficeemployee";
+	}
+
 	@GetMapping("/showNewDeansOfficeEmployeeForm")
 	public String showNewDeansOfficeEmployeeForm(Model model) {
 		// create model attribute to bind form data
 		DeansOfficeEmployee deansofficeemployee = new DeansOfficeEmployee();
+
+
 		model.addAttribute("deansofficeemployee", deansofficeemployee);
+		model.addAttribute("degrees",Degree.values());
+		model.addAttribute("adresses",adressRepository.findAll() );
+
 		return "new_deansofficeemployee";
 	}
-	
-	@PostMapping("/saveDeansOfficeEmployee")
-	public String saveDeansOfficeEmployee(@ModelAttribute("deansofficeemployee") DeansOfficeEmployee deansofficeemployee) {
-		// save deansofficeemployee to database
-		deansofficeemployeeService.saveDeansOfficeEmployee(deansofficeemployee);
+	@GetMapping("/deleteDeansOfficeEmployee/{id}")
+	public String deleteDeansOfficeEmployee(@PathVariable long id){
+		deansofficeemployeeService.deleteDeansOfficeEmployee(id);
 		return "redirect:/deansofficeemployee";
 	}
-	
 	@GetMapping("/showFormForUpdateDeansOfficeEmployee/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
-		
-		// get deansofficeemployee from the service
 		DeansOfficeEmployee deansofficeemployee = deansofficeemployeeService.getDeansOfficeEmployeeById(id);
-		
-		// set deansofficeemployee as a model attribute to pre-populate the form
+
 		model.addAttribute("deansofficeemployee", deansofficeemployee);
+		model.addAttribute("degrees",Degree.values());
+		model.addAttribute("adresses",adressRepository.findAll() );
+
 		return "update_deansofficeemployee";
 	}
-	
-	@GetMapping("/deleteDeansOfficeEmployee/{id}")
-	public String deleteDeansOfficeEmployee(@PathVariable (value = "id") long id) {
-		
-		// call delete deansofficeemployee method 
-		this.deansofficeemployeeService.deleteDeansOfficeEmployeeById(id);
+
+	@PostMapping("/updateDeansOfficeEmployee")
+	public String updateDeansOfficeEmployee(@ModelAttribute("deansofficeemployee") DeansOfficeEmployee deansofficeemployee){
+
+		deansofficeemployeeService.updateDeansOfficeEmployee(deansofficeemployee);
 		return "redirect:/deansofficeemployee";
 	}
-	
-	
-	@GetMapping("/pageDeansOfficeEmployee/{pageNo}")
-	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
-			@RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDir,
-			Model model) {
-		int pageSize = 5;
-		
-		Page<DeansOfficeEmployee> page = deansofficeemployeeService.findPaginated(pageNo, pageSize, sortField, sortDir);
-		List<DeansOfficeEmployee> listDeansOfficeEmployees = page.getContent();
-		
-		model.addAttribute("currentPage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		
-		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		
-		model.addAttribute("listDeansOfficeEmployees", listDeansOfficeEmployees);
-		return "indexdeansofficeemployee";
-	}
+
+
 }

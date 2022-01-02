@@ -1,6 +1,8 @@
 package net.javaguides.springboot.service;
 
 import net.javaguides.springboot.model.Admin;
+import net.javaguides.springboot.model.Admin;
+import net.javaguides.springboot.repository.AdminRepository;
 import net.javaguides.springboot.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,14 +11,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+	public AdminRepository adminRepository;
+
+	List<Admin> lista = new ArrayList<>();
+	public long id = 0;
 
 	@Autowired
-	private AdminRepository adminRepository;
+	public AdminServiceImpl(AdminRepository adminRepository) {
+		this.adminRepository = adminRepository;
+	}
 
 	@Override
 	public List<Admin> getAllAdmins() {
@@ -24,33 +33,27 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void saveAdmin(Admin admin) {
-		this.adminRepository.save(admin);
+	public Admin addAdmin(Admin admin) {
+		return adminRepository.save(admin);
 	}
 
 	@Override
 	public Admin getAdminById(long id) {
-		Optional<Admin> optional = adminRepository.findById(id);
-		Admin admin = null;
-		if (optional.isPresent()) {
-			admin = optional.get();
-		} else {
-			throw new RuntimeException(" Admin not found for id :: " + id);
-		}
-		return admin;
+		return adminRepository.getOne(id);
 	}
 
 	@Override
-	public void deleteAdminById(long id) {
-		this.adminRepository.deleteById(id);
+	public void deleteAdmin(long id) {
+		adminRepository.deleteById(id);
 	}
 
 	@Override
-	public Page<Admin> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-			Sort.by(sortField).descending();
-		
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-		return this.adminRepository.findAll(pageable);
+	public void updateAdmin(Admin admin) {
+//        this.adminRepository.getOne(admin.getId()).setFirstName(admin.getFirstName());
+//        this.adminRepository.getOne(admin.getId()).setLastName(admin.getLastName());
+//        this.adminRepository.getOne(admin.getId()).setEmail(admin.getEmail());
+//        this.adminRepository.getOne(admin.getId()).setAdress(admin.getAdress());
+//        this.adminRepository.getOne(admin.getId()).setDegree(admin.getDegree());
+		this.adminRepository.save(admin);
 	}
 }
