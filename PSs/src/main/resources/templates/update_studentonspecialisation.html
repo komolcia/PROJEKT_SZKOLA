@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Class Management System</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+		<div class="container-fluid">
+			<button
+					class="navbar-toggler"
+					type="button"
+					data-mdb-toggle="collapse"
+					data-mdb-target="#navbarExample01"
+					aria-controls="navbarExample01"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+			>
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarExample01">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item active">
+						<a class="nav-link" aria-current="page" href="index.html">PS</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="student">Class</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="professor">Professor</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="admin">Admin</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="deansofficeemployee">Deans Office Employee</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="faculty">Faculty</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="adress">Adress</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Navbar -->
+
+	<!-- Background image -->
+	<div
+			class="p-5 text-center bg-image"
+			style="
+          background-image: url('https://ug.edu.pl/sites/ug.edu.pl/files/_nodes/strona/97498/images/ug2.jpg');
+          height: 400px;
+          margin-top: 58px;
+        "
+	>
+		<div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+			<div class="d-flex justify-content-center align-items-center h-100">
+				<div class="text-white">
+					<h1 class="mb-3">Student's Portal</h1>
+					<h4 class="mb-3">University of Gdansk</h4>
+					<a class="btn btn-outline-light btn-lg" href="#!" role="button"
+					>Perfect place</a
+					>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Background image -->
+</header>
+	<div class="container">
+		<h1>Student On Specialisation Management System</h1>
+		<hr>
+		<h2>Update Student on Specialisation</h2>
+		<form action="#" th:action="@{/updateStudentOnSpecialisation}" th:object="${studentOnSpecialisation}"
+			  method="POST">
+			<input type="number" th:field="*{year}"
+				   placeholder="Student on Specialisation Year" class="form-control mb-4 col-4">
+
+			<input type="Specialisation" th:field="*{specialisation}"
+				   placeholder="Specialisation" class="form-control mb-4 col-4">
+
+			<input type="number" th:field="*{semester}"
+				   placeholder="Semester" class="form-control mb-4 col-4">
+
+			<input type="number" th:field="*{gradeAverage}"
+				   placeholder="Grade Average" class="form-control mb-4 col-4">
+			<button type="submit" > Save Student On Specialisation</button>
+		</form>
+
+
+		<hr>
+		
+		<a th:href = "@{/}"> Back to Class List</a>
+	</div>
+</body>
+</html>
