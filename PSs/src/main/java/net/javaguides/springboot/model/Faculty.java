@@ -4,9 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @Setter
@@ -23,10 +21,11 @@ public class Faculty {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "faculty_id")
-    @ToString.Exclude
-    private List<Professor> professors = new LinkedList<>();
+    //    @OneToMany(cascade = CascadeType.DETACH)
+//    @JoinColumn(name = "faculty_id")
+//    @ToString.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Set<Professor> professors = new HashSet<Professor>(0);
 
     @Column(name = "address")
     private String address;
@@ -50,11 +49,11 @@ public class Faculty {
         this.name = name;
     }
 
-    public List<Professor> getProfessors() {
+    public Set<Professor> getProfessors() {
         return professors;
     }
 
-    public void setProfessors(List<Professor> professors) {
+    public void setProfessors(Set<Professor> professors) {
         this.professors = professors;
     }
 
