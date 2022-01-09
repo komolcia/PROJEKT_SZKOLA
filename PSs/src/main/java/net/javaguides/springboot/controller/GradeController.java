@@ -13,10 +13,9 @@ public class GradeController {
     @Autowired
     private GradeService gradeService;
 
-    // display list of admins
     @GetMapping("/grade")
     public String viewHomePage(Model model) {
-        return findPaginated(1, "name", "asc", model);
+        return findPaginated(1, "id", "asc", model);
     }
 
     @GetMapping("/showNewGradeForm")

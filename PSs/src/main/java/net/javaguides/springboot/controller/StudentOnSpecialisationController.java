@@ -26,7 +26,7 @@ public class StudentOnSpecialisationController {
     // display list of StudentOnSpecialisations
     @GetMapping("/studentOnSpecialisation")
     public String viewHomePage(Model model) {
-        return findPaginated(1, "firstName", "asc", model);
+        return findPaginated(1, "id", "asc", model);
     }
 
     @GetMapping("/showNewStudentOnSpecialisationForm")

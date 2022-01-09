@@ -19,7 +19,7 @@ public class SpecialisationController {
     // display list of Specialisations
     @GetMapping("/specialisation")
     public String viewHomePage(Model model) {
-        return findPaginated(1, "firstName", "asc", model);
+        return findPaginated(1, "name", "asc", model);
     }
 
     @GetMapping("/showNewSpecialisationForm")
