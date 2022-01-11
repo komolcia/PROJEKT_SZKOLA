@@ -114,7 +114,7 @@
         <td th:text="${student.lastName}"></td>
         <td th:text="${student.email}"></td>
         <td th:text="${#strings.listJoin(student.degree, ',')}"></td>
-        <td th:text="${student.adress.streetnumber} + ', '+ ${student.adress.postalcode}"></td>
+        <td th:text="${student.adress}"></td>
         <td><a th:href="@{/deleteStudent/{id}(id=${student.id})}" >Delete</a></td>
         <td><a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}">Update</a></td>
         <td><a th:href="@{/student/{id}(id=${student.id})}">See details</a></td>

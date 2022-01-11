@@ -2,19 +2,12 @@ package net.javaguides.springboot.model;
 
 import net.javaguides.springboot.model.domain.Degree;
 
-import net.javaguides.springboot.model.Class;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
-import org.hibernate.annotations.IndexColumn;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,17 +31,16 @@ public class Student {
     @NotNull
 
     private Degree degree;
-    @OneToOne(targetEntity = net.javaguides.springboot.model.Adress.class)
 
-    @Autowired
-    private Adress adress;
+    @Column(name = "adress")
+    private String adress;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
 
     public Set<Class> classes = new HashSet<Class>(0);
 
 
-    public Student(String firstname, String lastName, String email, Degree degree, Adress adress, Set<Class> classes) {
-        this.adress=adress;
+    public Student(String firstname, String lastName, String email, Degree degree, String adress, Set<Class> classes) {
+        this.adress =adress;
         this.email = email;
         this.degree = degree;
         this.firstName = firstname;
@@ -57,8 +49,8 @@ public class Student {
 
     }
 
-    public Student(long id, String firstname, String lastName, String email, Degree degree,Adress adress,Set<Class> classes) {
-        this.adress=adress;
+    public Student(long id, String firstname, String lastName, String email, Degree degree,String adress,Set<Class> classes) {
+        this.adress =adress;
         this.id = id;
         this.degree = degree;
 
@@ -109,11 +101,11 @@ public class Student {
         return lastName;
     }
 
-    public Adress getAdress() {
+    public String getAdress() {
         return adress;
     }
 
-    public void setAdress(Adress adress) {
+    public void setAdress(String adress) {
         this.adress = adress;
     }
 

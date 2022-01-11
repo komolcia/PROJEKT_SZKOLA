@@ -32,16 +32,15 @@ public class Professor {
 
     @Column(name = "degree")
     private Degree degree;
-    @OneToOne(targetEntity = net.javaguides.springboot.model.Adress.class)
 
-    @Autowired
-    private Adress adress;
+    @Column(name="adress")
+    private String adress;
 
-    public void setAdress(Adress adress) {
+    public void setAdress(String adress) {
         this.adress = adress;
     }
 
-    public Adress getAdress() {
+    public String getAdress() {
         return adress;
     }
 

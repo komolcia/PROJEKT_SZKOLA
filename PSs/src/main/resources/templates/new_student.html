@@ -122,10 +122,10 @@
             <option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
         </select>
         <br>
-        <select th:field="*{adress}">
-            <option th:each="adress : ${adresses}" th:value="${adress.id}"
-                    th:text="${adress.streetnumber} + ' '+ ${adress.postalcode}"></option>
-        </select>
+        <input type="text" th:field="*{adress}"
+               placeholder="Student address">
+        <div th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}">Address error</div>
+        <br>
         <p></p>
 
         <select th:field="*{classes}" class="form-control" multiple="multiple">

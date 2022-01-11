@@ -101,8 +101,6 @@
         <th scope="col">Id</th>
         <th scope="col">Name</th>
         <th scope="col">Address</th>
-<!--        <th scope="col">Dean</th>-->
-<!--        <th scope="col">Professors</th>-->
 
 
         <th scope="col">Delete</th>
@@ -116,8 +114,6 @@
         <td th:text="${faculty.id}"></td>
         <td th:text="${faculty.name}"></td>
         <td th:text="${faculty.address}"></td>
-<!--        <td th:text="${faculty.dean.firstName}"></td>-->
-<!--        <td th:text="${#strings.listJoin(faculty.professors, ',')}"></td>-->
         <td><a th:href="@{/deleteFaculty/{id}(id=${faculty.id})}" >Delete</a></td>
         <td><a th:href="@{/showFormForUpdateFacultyt/{id}(id=${faculty.id})}">Update</a></td>
         <td><a th:href="@{/faculty/{id}(id=${faculty.id})}">See details</a></td>

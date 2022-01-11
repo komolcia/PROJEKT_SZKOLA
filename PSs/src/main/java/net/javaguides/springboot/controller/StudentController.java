@@ -26,8 +26,6 @@ import java.util.List;
 public class StudentController {
 
 	private final StudentService studentService;
-	@Autowired public AdressService adressService;
-	@Autowired public AdressRepository adressRepository;
 	@Autowired public ClassRepository classRepository;
 	public StudentController(@Autowired StudentService studentService) {
 		this.studentService = studentService;
@@ -74,7 +72,6 @@ public class StudentController {
 
 		model.addAttribute("student", student);
 		model.addAttribute("degrees",Degree.values());
-		model.addAttribute("adresses",adressRepository.findAll() );
 		model.addAttribute("classess", classRepository.findAll());
 		return "new_student";
 	}
@@ -89,7 +86,6 @@ public class StudentController {
 
 		model.addAttribute("student", student);
 		model.addAttribute("degrees",Degree.values());
-		model.addAttribute("adresses",adressRepository.findAll() );
 		model.addAttribute("classess",classRepository.findAll());
 		return "update_student";
 	}

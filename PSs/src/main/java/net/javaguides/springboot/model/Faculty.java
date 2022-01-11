@@ -21,12 +21,6 @@ public class Faculty {
     @Column(name = "name")
     private String name;
 
-    //    @OneToMany(cascade = CascadeType.DETACH)
-//    @JoinColumn(name = "faculty_id")
-//    @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Professor> professors = new HashSet<Professor>(0);
-
     @Column(name = "address")
     private String address;
 
@@ -49,13 +43,6 @@ public class Faculty {
         this.name = name;
     }
 
-    public Set<Professor> getProfessors() {
-        return professors;
-    }
-
-    public void setProfessors(Set<Professor> professors) {
-        this.professors = professors;
-    }
 
     public String getAddress() {
         return address;
@@ -73,13 +60,6 @@ public class Faculty {
         this.dean = dean;
     }
 
-    public void addProfessor(Professor professor) {
-        this.professors.add(professor);
-    }
-
-    public void removeProfessor(Professor professor) {
-        this.professors.remove(professor);
-    }
 
     @Override
     public boolean equals(Object o) {
