@@ -2,17 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Faculty Management System</title>
+    <title>Student Management System</title>
 
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -85,7 +80,7 @@
             <div class="d-flex justify-content-center align-items-center h-100">
                 <div class="text-white">
                     <h1 class="mb-3">Student's Portal</h1>
-                    <h4 class="mb-3">University of Gda?sk</h4>
+                    <h4 class="mb-3">University of Gdansk</h4>
                     <a class="btn btn-outline-light btn-lg" href="#!" role="button"
                     >UG shares its knowledge</a
                     >
@@ -95,36 +90,37 @@
     </div>
     <!-- Background image -->
 </header>
-<div class="container">
-    <h1>Adress Management System</h1>
-    <hr>
-    <h2>Save Adress</h2>
-
-    <form action="#" th:action="@{/addAdress}" th:object="${adress}"
-          method="POST">
-       
-        <input type="text" th:field="*{city}"
-               placeholder="Adress City" >
-
-        <input type="text" th:field="*{streetnumber}"
-               placeholder="Adress Street">
-
-        <input type="text" th:field="*{postalcode}"
-               placeholder="Adress Postal Code">
+<table class="table  table-dark">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Max Amount</th>
+        <th scope="col">Current Amount</th>
 
 
-        <button type="submit"> Save Adress</button>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
 
-        <div th:if="${#fields.hasErrors('*')}">
-            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-        </div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="specialization : ${allSpecializationsFromDB}">
+        <td th:text="${specialization.id}"></td>
+        <td th:text="${specialization.name}"></td>
+        <td th:text="${specialization.description}"></td>
 
-    </form>
+        <td th:text="${specialization.maxAmountOfStudent}"></td>
+        <td th:text="${specialization.currentAmountOfStudents}"></td>
+        <td><a th:href="@{/deleteSpecialization/{id}(id=${specialization.id})}" >Delete</a></td>
+        <td><a th:href="@{/showFormForUpdateSpecialization/{id}(id=${specialization.id})}">Update</a></td>
+    </tr>
+    </tbody>
+</table>
+<center>
+<h2><a  th:href = "@{/showNewSpecializationForm}" color="black"> New Specialization</a></h2>
+</center>
 
-
-    <hr>
-
-    <a th:href="@{/adress}"> Back to Adress List</a>
-</div>
 </body>
 </html>

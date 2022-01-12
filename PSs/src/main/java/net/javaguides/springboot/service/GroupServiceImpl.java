@@ -1,8 +1,6 @@
 package net.javaguides.springboot.service;
 
-import net.javaguides.springboot.model.Group;
-import net.javaguides.springboot.model.Group;
-import net.javaguides.springboot.repository.GroupRepository;
+import net.javaguides.springboot.model.Group1;
 import net.javaguides.springboot.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,17 +21,17 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getAllGroups() {
+    public List<Group1> getAllGroups() {
         return groupRepository.findAll();
     }
 
     @Override
-    public void saveGroup(Group group) {
+    public void saveGroup(Group1 group) {
         groupRepository.save(group);
     }
 
     @Override
-    public Group getGroupById(long id) {
+    public Group1 getGroupById(long id) {
         return groupRepository.getOne(id);
     }
 
@@ -43,7 +41,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Page<Group> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+    public Page<Group1> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
 

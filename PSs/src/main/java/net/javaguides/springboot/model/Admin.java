@@ -1,8 +1,10 @@
 package net.javaguides.springboot.model;
 
+import net.javaguides.springboot.model.domain.Degree;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "admins")
@@ -24,6 +26,17 @@ public class Admin {
 
 	@Autowired
 	private Adress adress;
+	@NotNull
+
+	private Degree degree;
+
+	public void setDegree(Degree degree) {
+		this.degree = degree;
+	}
+
+	public Degree getDegree() {
+		return degree;
+	}
 
 	public void setAdress(Adress adress) {
 		this.adress = adress;

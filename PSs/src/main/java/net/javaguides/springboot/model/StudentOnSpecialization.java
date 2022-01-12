@@ -1,19 +1,17 @@
 package net.javaguides.springboot.model;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Table
-public class StudentOnSpecialisation {
+public class StudentOnSpecialization {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private long id;
     @ManyToOne
-    @JoinColumn(name = "specialisation_id")
-    private Specialisation specialisation;
+    @JoinColumn(name = "specialization_id")
+    private Specialization specialization;
     private int year;
     private int semester;
     // @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
@@ -29,12 +27,12 @@ public class StudentOnSpecialisation {
         this.id = id;
     }
 
-    public Specialisation getSpecialisation() {
-        return specialisation;
+    public Specialization getSpecialization() {
+        return specialization;
     }
 
-    public void setSpecialisation(Specialisation specialisation) {
-        this.specialisation = specialisation;
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
     }
 
     public int getYear() {

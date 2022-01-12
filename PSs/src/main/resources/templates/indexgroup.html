@@ -50,13 +50,13 @@
                         <a class="nav-link" href="/adress">Address</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/grade">Grade</a>
+                        <a class="nav-link" href="/studentclasses">Grade</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/group">Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/specialisation">Specialisation</a>
+                        <a class="nav-link" href="/specialization">Specialization</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/term">Term</a>
@@ -82,7 +82,7 @@
                     <h1 class="mb-3">Student's Portal</h1>
                     <h4 class="mb-3">University of Gdansk</h4>
                     <a class="btn btn-outline-light btn-lg" href="#!" role="button"
-                    >Perfect place</a
+                    >UG shares its knowledge</a
                     >
                 </div>
             </div>
@@ -105,15 +105,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="group : ${allGroupsFromDB}">
-        <td th:text="${group.id}"></td>
-        <td th:text="${group.year}"></td>
-        <td th:text="${group.semester}"></td>
-        <td th:text="${group.number}"></td>
-        <td th:text="${group.professor.firstName + ' '+ group.professor.lastName}"></td>
-        <td th:text="${group.place}"></td>
-        <td><a th:href="@{/deleteGroup/{id}(id=${group.id})}" >Delete</a></td>
-        <td><a th:href="@{/showFormForUpdateGroup/{id}(id=${group.id})}">Update</a></td>
+    <tr th:each="group1 : ${allGroupsFromDB}">
+        <td th:text="${group1.id}"></td>
+        <td th:text="${group1.year}"></td>
+        <td th:text="${group1.semester}"></td>
+        <td th:text="${group1.number}"></td>
+        <td th:text="${group1.professor.firstName + ' '+ group1.professor.lastName}"></td>
+        <td th:text="${group1.place}"></td>
+        <td><a th:href="@{/deleteGroup/{id}(id=${group1.id})}" >Delete</a></td>
+        <td><a th:href="@{/showFormForUpdateGroup/{id}(id=${group1.id})}">Update</a></td>
     </tr>
     </tbody>
 </table>

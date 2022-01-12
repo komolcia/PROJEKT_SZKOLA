@@ -1,6 +1,6 @@
 package net.javaguides.springboot.controller;
 
-import net.javaguides.springboot.model.Group;
+import net.javaguides.springboot.model.Group1;
 import net.javaguides.springboot.service.GroupService;
 import net.javaguides.springboot.service.ProfessorService;
 import net.javaguides.springboot.service.TermService;
@@ -32,7 +32,7 @@ public class GroupController {
     @GetMapping("/showNewGroupForm")
     public String showNewGroupForm(Model model) {
         // create model attribute to bind form data
-        Group Group = new Group();
+        Group1 Group = new Group1();
         model.addAttribute("group", Group);
         model.addAttribute("professors", professorService.getAllProfessors());
         model.addAttribute("terms", termService.getAllTerms());
@@ -40,7 +40,7 @@ public class GroupController {
     }
 
     @PostMapping("/saveGroup")
-    public String saveGroup(@ModelAttribute("group") Group group) {
+    public String saveGroup(@ModelAttribute("group") Group1 group) {
         groupService.saveGroup(group);
         return "redirect:/group";
     }
@@ -49,7 +49,7 @@ public class GroupController {
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 
         // get admin from the service
-        Group group = groupService.getGroupById(id);
+        Group1 group = groupService.getGroupById(id);
 
         // set admin as a model attribute to pre-populate the form
         model.addAttribute("group", group);
@@ -72,8 +72,8 @@ public class GroupController {
                                 Model model) {
         int pageSize = 5;
 
-        Page<Group> page = groupService.findPaginated(pageNo, pageSize, sortField, sortDir);
-        List<Group> listGroups = page.getContent();
+        Page<Group1> page = groupService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Group1> listGroups = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());

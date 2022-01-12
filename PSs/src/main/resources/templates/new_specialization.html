@@ -96,24 +96,38 @@
     <!-- Background image -->
 </header>
 <div class="container">
-    <h1>Adress Management System</h1>
+    <h1>Specialization Management System</h1>
     <hr>
-    <h2>Save Adress</h2>
+    <h2>Save Specialization</h2>
 
-    <form action="#" th:action="@{/addAdress}" th:object="${adress}"
+    <form action="#" th:action="@{/addSpecialization}" th:object="${specialization}"
           method="POST">
-       
-        <input type="text" th:field="*{city}"
-               placeholder="Adress City" >
 
-        <input type="text" th:field="*{streetnumber}"
-               placeholder="Adress Street">
+     <br>
+        <label>
+            <input type="text" th:field="*{name}"
+                   placeholder="Name">
+        </label>
 
-        <input type="text" th:field="*{postalcode}"
-               placeholder="Adress Postal Code">
+        <br>
+        <label>
+        <input type="text" th:field="*{description}"
+               placeholder="Description">
+        </label>
+        <label>
+            <input type="number" th:field="*{maxAmountOfStudent}"
+                   placeholder="maxAmountOfStudents">
+        </label>
+        <label>
+            <input type="number" th:field="*{currentAmountOfStudents}"
+                   placeholder="currentAmountOfStudents">
+        </label>
 
 
-        <button type="submit"> Save Adress</button>
+
+
+        <br>
+        <button type="submit"> Save Specialization</button>
 
         <div th:if="${#fields.hasErrors('*')}">
             <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
@@ -124,7 +138,7 @@
 
     <hr>
 
-    <a th:href="@{/adress}"> Back to Adress List</a>
+    <a th:href="@{/specialization}"> Back to Specialization List</a>
 </div>
 </body>
 </html>

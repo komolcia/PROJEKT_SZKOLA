@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 
 @Entity
-public class Group {
+public class Group1 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

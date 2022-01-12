@@ -55,13 +55,13 @@
                         <a class="nav-link" href="/adress">Address</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/grade">Grade</a>
+                        <a class="nav-link" href="/studentclasses">Grade</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/group">Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/specialisation">Specialisation</a>
+                        <a class="nav-link" href="/specialization">Specialization</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/term">Term</a>
@@ -87,7 +87,7 @@
                     <h1 class="mb-3">Student's Portal</h1>
                     <h4 class="mb-3">University of Gda?sk</h4>
                     <a class="btn btn-outline-light btn-lg" href="#!" role="button"
-                    >Perfect place</a
+                    >UG shares its knowledge</a
                     >
                 </div>
             </div>
@@ -97,17 +97,17 @@
 </header>
 <body>
 <div class="container">
-    <h1>Student On Specialisation Management System</h1>
+    <h1>Student On Specialization Management System</h1>
     <hr>
-    <h2>Save Student on Specialisation</h2>
+    <h2>Save Student on Specialization</h2>
 
-    <form action="#" th:action="@{/saveStudentOnSpecialisation}" th:object="${studentOnSpecialisation}"
+    <form action="#" th:action="@{/saveStudentOnSpecialization}" th:object="${studentOnSpecialization}"
           method="POST">
         <input type="number" th:field="*{year}"
-               placeholder="Student on Specialisation Year" class="form-control mb-4 col-4">
+               placeholder="Student on Specialization Year" class="form-control mb-4 col-4">
 
-        <input type="Specialisation" th:field="*{specialisation}"
-               placeholder="Specialisation" class="form-control mb-4 col-4">
+        <input type="Specialization" th:field="*{specialization}"
+               placeholder="Specialization" class="form-control mb-4 col-4">
 
         <input type="number" th:field="*{semester}"
                placeholder="Semester" class="form-control mb-4 col-4">
@@ -115,12 +115,12 @@
         <input type="number" th:field="*{gradeAverage}"
                placeholder="Grade Average" class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2"> Save Student on Specialisation</button>
+        <button type="submit" class="btn btn-info col-2"> Save Student on Specialization</button>
     </form>
 
     <hr>
 
-    <a th:href = "@{/studentOnSpecialisation}"> Back to Student on Specialisation List</a>
+    <a th:href = "@{/studentOnSpecialization}"> Back to Student on Specialization List</a>
 </div>
 </body>
 </html>

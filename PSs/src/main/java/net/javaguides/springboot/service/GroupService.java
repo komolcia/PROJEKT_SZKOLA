@@ -1,14 +1,14 @@
 package net.javaguides.springboot.service;
 
-import net.javaguides.springboot.model.Group;
+import net.javaguides.springboot.model.Group1;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface GroupService {
-    List<Group> getAllGroups();
-    void saveGroup(Group Group);
-    Group getGroupById(long id);
+    List<Group1> getAllGroups();
+    void saveGroup(Group1 Group1);
+    Group1 getGroupById(long id);
     void deleteGroupById(long id);
-    Page<Group> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+    Page<Group1> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

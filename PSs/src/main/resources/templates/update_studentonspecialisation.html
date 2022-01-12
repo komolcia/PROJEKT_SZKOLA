@@ -67,7 +67,7 @@
 					<h1 class="mb-3">Student's Portal</h1>
 					<h4 class="mb-3">University of Gdansk</h4>
 					<a class="btn btn-outline-light btn-lg" href="#!" role="button"
-					>Perfect place</a
+					>UG shares its knowledge</a
 					>
 				</div>
 			</div>
@@ -76,23 +76,23 @@
 	<!-- Background image -->
 </header>
 	<div class="container">
-		<h1>Student On Specialisation Management System</h1>
+		<h1>Student On Specialization Management System</h1>
 		<hr>
-		<h2>Update Student on Specialisation</h2>
-		<form action="#" th:action="@{/updateStudentOnSpecialisation}" th:object="${studentOnSpecialisation}"
+		<h2>Update Student on Specialization</h2>
+		<form action="#" th:action="@{/updateStudentOnSpecialization}" th:object="${studentOnSpecialization}"
 			  method="POST">
 			<input type="number" th:field="*{year}"
-				   placeholder="Student on Specialisation Year" class="form-control mb-4 col-4">
+				   placeholder="Student on Specialization Year" class="form-control mb-4 col-4">
 
-			<input type="Specialisation" th:field="*{specialisation}"
-				   placeholder="Specialisation" class="form-control mb-4 col-4">
+			<input type="Specialization" th:field="*{specialization}"
+				   placeholder="Specialization" class="form-control mb-4 col-4">
 
 			<input type="number" th:field="*{semester}"
 				   placeholder="Semester" class="form-control mb-4 col-4">
 
 			<input type="number" th:field="*{gradeAverage}"
 				   placeholder="Grade Average" class="form-control mb-4 col-4">
-			<button type="submit" > Save Student On Specialisation</button>
+			<button type="submit" > Save Student On Specialization</button>
 		</form>
 
 
