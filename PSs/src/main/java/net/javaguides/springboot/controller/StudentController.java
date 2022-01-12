@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import net.javaguides.springboot.model.Adress;
 import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.repository.ClassRepository;
+import net.javaguides.springboot.repository.SpecializationRepository;
+import net.javaguides.springboot.repository.TermRepository;
 import net.javaguides.springboot.service.AdressService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,8 @@ public class StudentController {
 
 	private final StudentService studentService;
 	@Autowired public ClassRepository classRepository;
+	@Autowired public SpecializationRepository specializationRepository;
+	@Autowired public TermRepository termRepository;
 	public StudentController(@Autowired StudentService studentService) {
 		this.studentService = studentService;
 	}
@@ -58,7 +62,8 @@ public class StudentController {
 		List<Class> studentClasses = new ArrayList<>(student.classes);
 		model.addAttribute("student", student);
 		model.addAttribute("studentClasses", this.classRepository.findAll());
-
+		model.addAttribute("specializations",specializationRepository.findAll() );
+		model.addAttribute("terms",termRepository.findAll() );
 		System.out.println(this.classRepository.findAll());
 
 		return "show_student";
@@ -73,6 +78,8 @@ public class StudentController {
 		model.addAttribute("student", student);
 		model.addAttribute("degrees",Degree.values());
 		model.addAttribute("classess", classRepository.findAll());
+		model.addAttribute("specializations",specializationRepository.findAll() );
+		model.addAttribute("terms",termRepository.findAll() );
 		return "new_student";
 	}
 	@GetMapping("/deleteStudent/{id}")
@@ -87,6 +94,8 @@ public class StudentController {
 		model.addAttribute("student", student);
 		model.addAttribute("degrees",Degree.values());
 		model.addAttribute("classess",classRepository.findAll());
+		model.addAttribute("specializations",specializationRepository.findAll() );
+		model.addAttribute("terms",termRepository.findAll() );
 		return "update_student";
 	}
 

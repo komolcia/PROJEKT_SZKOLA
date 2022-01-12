@@ -100,7 +100,7 @@
         <th scope="col">Professor</th>
         <th scope="col">Place</th>
         <th scope="col">Delete</th>
-        <th scope="col">Update</th>
+
 
     </tr>
     </thead>
@@ -113,7 +113,7 @@
         <td th:text="${group1.professor.firstName + ' '+ group1.professor.lastName}"></td>
         <td th:text="${group1.place}"></td>
         <td><a th:href="@{/deleteGroup/{id}(id=${group1.id})}" >Delete</a></td>
-        <td><a th:href="@{/showFormForUpdateGroup/{id}(id=${group1.id})}">Update</a></td>
+
     </tr>
     </tbody>
 </table>

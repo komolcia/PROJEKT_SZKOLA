@@ -1,6 +1,7 @@
 package net.javaguides.springboot.model;
 
 import net.javaguides.springboot.model.domain.Degree;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.persistence.*;
@@ -32,6 +33,9 @@ public class Student {
 
     private Degree degree;
 
+    @OneToOne(targetEntity = net.javaguides.springboot.model.Specialization.class)
+    @Autowired
+    private Specialization specialization;
     @Column(name = "adress")
     private String adress;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
@@ -119,6 +123,14 @@ public class Student {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
     }
 
 

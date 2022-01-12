@@ -1,6 +1,8 @@
 package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.model.Faculty;
+import net.javaguides.springboot.repository.ProfessorRepository;
+import net.javaguides.springboot.repository.TermRepository;
 import net.javaguides.springboot.service.FacultyService;
 import net.javaguides.springboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ public class FacultyController {
     private FacultyService facultyService;
     @Autowired
     private ProfessorService professorService;
-
+@Autowired
+    public TermRepository termRepository;
+@Autowired public ProfessorRepository professorRepository;
     // display list of admins
     @GetMapping("/faculty")
     public String viewHomePage(Model model) {
@@ -30,7 +34,8 @@ public class FacultyController {
         // create model attribute to bind form data
         Faculty faculty = new Faculty();
         model.addAttribute("faculty", faculty);
-        model.addAttribute("allProfessors", professorService.getAllProfessors());
+        model.addAttribute("allProfessors", professorRepository.findAll());
+        model.addAttribute("terms",termRepository.findAll() );
         return "new_faculty";
     }
 
@@ -49,7 +54,8 @@ public class FacultyController {
 
         // set admin as a model attribute to pre-populate the form
         model.addAttribute("faculty", faculty);
-        model.addAttribute("allProfessors", professorService.getAllProfessors());
+        model.addAttribute("allProfessors", professorRepository.findAll());
+        model.addAttribute("terms",termRepository.findAll() );
         return "update_faculty";
     }
 

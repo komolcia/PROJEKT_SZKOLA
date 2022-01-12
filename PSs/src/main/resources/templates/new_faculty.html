@@ -108,7 +108,10 @@
         <br>
 
         <select th:field="*{dean}">
-            <option th:each="dean : ${allProfessors}" th:value="${dean}" th:text="${dean.lastName}"></option>
+            <option th:each="dean : ${allProfessors}" th:value="${dean.id}" th:text="${dean.lastName}"></option>
+        </select>
+        <select th:field="*{term}">
+            <option th:each="dean : ${terms}" th:value="${dean.id}" th:text="${dean.weeksDay}"></option>
         </select>
         <br>
         <p></p>

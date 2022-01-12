@@ -101,10 +101,10 @@
         <th scope="col">Id</th>
         <th scope="col">Name</th>
         <th scope="col">Address</th>
+        <th scope="col">Term</th>
 
 
         <th scope="col">Delete</th>
-        <th scope="col">Update</th>
         <th scope="col">Details</th>
 
     </tr>
@@ -114,8 +114,9 @@
         <td th:text="${faculty.id}"></td>
         <td th:text="${faculty.name}"></td>
         <td th:text="${faculty.address}"></td>
+        <td th:text="${faculty.term.weeksDay}"></td>
         <td><a th:href="@{/deleteFaculty/{id}(id=${faculty.id})}" >Delete</a></td>
-        <td><a th:href="@{/showFormForUpdateFacultyt/{id}(id=${faculty.id})}">Update</a></td>
+
         <td><a th:href="@{/faculty/{id}(id=${faculty.id})}">See details</a></td>
     </tr>
     </tbody>

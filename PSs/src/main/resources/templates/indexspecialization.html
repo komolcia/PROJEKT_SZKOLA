@@ -106,7 +106,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="specialization : ${allSpecializationsFromDB}">
+    <tr th:each="specialization : ${listSpecializations}">
         <td th:text="${specialization.id}"></td>
         <td th:text="${specialization.name}"></td>
         <td th:text="${specialization.description}"></td>

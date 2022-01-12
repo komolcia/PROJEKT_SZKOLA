@@ -128,6 +128,11 @@
         <br>
         <p></p>
 
+        <select th:field="*{specialization}" class="form-control" >
+            <option th:each="classes: ${specializations}" th:value="${classes.id}" th:text="${classes.name}"></option>
+        </select>
+        <p></p>
+
         <select th:field="*{classes}" class="form-control" multiple="multiple">
             <option th:each="classes: ${classess}" th:value="${classes.id}" th:text="${classes.name}"></option>
         </select>

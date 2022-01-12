@@ -2,6 +2,7 @@ package net.javaguides.springboot.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.*;
@@ -24,8 +25,20 @@ public class Faculty {
     @Column(name = "address")
     private String address;
 
-    @OneToOne
-    private Professor dean;
+    @OneToOne(targetEntity = net.javaguides.springboot.model.Professor.class)
+    @Autowired private Professor dean;
+    @OneToOne(targetEntity = net.javaguides.springboot.model.Term.class)
+
+    @Autowired
+    private Term term;
+
+    public void setTerm(Term term) {
+        this.term = term;
+    }
+
+    public Term getTerm() {
+        return term;
+    }
 
     public Long getId() {
         return id;
@@ -58,19 +71,5 @@ public class Faculty {
 
     public void setDean(Professor dean) {
         this.dean = dean;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Faculty faculty = (Faculty) o;
-        return id != null && Objects.equals(id, faculty.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
     }
 }

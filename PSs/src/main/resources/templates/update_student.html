@@ -102,6 +102,10 @@
 			<select th:field="*{adress}">
 				<option th:each="adress : ${adresses}" th:value="${adress.id}" th:text="${adress.city}"></option>
 			</select>
+			<select th:field="*{specialization}" class="form-control" >
+				<option th:each="classes: ${specializations}" th:value="${classes.id}" th:text="${classes.name}"></option>
+			</select>
+			<p></p>
 			<button type="submit" > Save Student</button>
 		</form>
 
