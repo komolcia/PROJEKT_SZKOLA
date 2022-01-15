@@ -45,6 +45,14 @@ public class Specialization {
         this.currentAmountOfStudents = currentAmountOfStudents;
     }
 
+    public String safeGetName() {
+        if (this.name != null) {
+            return " ";
+        } else {
+            return this.name;
+        }
+    }
+
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }

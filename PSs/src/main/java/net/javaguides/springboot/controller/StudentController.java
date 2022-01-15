@@ -2,7 +2,8 @@ package net.javaguides.springboot.controller;
 
 import javax.validation.Valid;
 
-import net.javaguides.springboot.model.Adress;
+import net.javaguides.springboot.model.*;
+import net.javaguides.springboot.model.Class;
 import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.repository.ClassRepository;
 import net.javaguides.springboot.repository.SpecializationRepository;
@@ -15,10 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import net.javaguides.springboot.service.StudentService;
-import net.javaguides.springboot.model.Student;
 import net.javaguides.springboot.model.Adress;
 import net.javaguides.springboot.model.domain.Degree;
-import net.javaguides.springboot.model.Class;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

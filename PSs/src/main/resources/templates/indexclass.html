@@ -100,8 +100,10 @@
         <th scope="col">Current Amount</th>
 
 
+
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
+        <th scope="col">Details</th>
 
     </tr>
     </thead>
@@ -115,6 +117,7 @@
         <td th:text="${class.currentAmountOfStudents}"></td>
         <td><a th:href="@{/deleteClass/{id}(id=${class.id})}" >Delete</a></td>
         <td><a th:href="@{/showFormForUpdateClass/{id}(id=${class.id})}">Update</a></td>
+        <td><a th:href="@{/showClassTerms/{id}(id=${class.id})}">Details</a></td>
     </tr>
     </tbody>
 </table>

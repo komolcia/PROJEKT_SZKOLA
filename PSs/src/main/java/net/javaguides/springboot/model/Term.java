@@ -64,4 +64,13 @@ public class Term {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return
+                hour +
+                        ":" + minute +
+                        ", " + weeksDay +
+                        " " + amountOfHours + '\n';
+    }
 }

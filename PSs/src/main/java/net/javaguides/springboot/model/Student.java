@@ -17,7 +17,7 @@ public class Student {
     @NotNull
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @NotNull
     @Size(min = 2, max = 10, message = "name should be longer than (equal to) 2 letters and shorter than (equal to) 10")
@@ -44,28 +44,35 @@ public class Student {
 
 
     public Student(String firstname, String lastName, String email, Degree degree, String adress, Set<Class> classes) {
-        this.adress =adress;
+        this.adress = adress;
         this.email = email;
         this.degree = degree;
         this.firstName = firstname;
         this.lastName = lastName;
-        this.classes=classes;
+        this.classes = classes;
 
     }
 
-    public Student(long id, String firstname, String lastName, String email, Degree degree,String adress,Set<Class> classes) {
-        this.adress =adress;
+    public Student(long id, String firstname, String lastName, String email, Degree degree, String adress, Set<Class> classes) {
+        this.adress = adress;
         this.id = id;
         this.degree = degree;
 
         this.email = email;
         this.firstName = firstname;
         this.lastName = lastName;
-        this.classes=classes;
+        this.classes = classes;
 
     }
 
     public Student() {
+    }
+
+    public String specialisationToStr() {
+        if (this.specialization != null) {
+            return specialization.getName();
+        }
+        return " ";
     }
 
     public void setClasses(Set<Class> classes) {

@@ -20,25 +20,15 @@ public class Faculty {
     private Long id;
 
     @Column(name = "name")
-    private String name;
+    private String name="";
 
     @Column(name = "address")
-    private String address;
+    private String address="";
 
     @OneToOne(targetEntity = net.javaguides.springboot.model.Professor.class)
     @Autowired private Professor dean;
     @OneToOne(targetEntity = net.javaguides.springboot.model.Term.class)
 
-    @Autowired
-    private Term term;
-
-    public void setTerm(Term term) {
-        this.term = term;
-    }
-
-    public Term getTerm() {
-        return term;
-    }
 
     public Long getId() {
         return id;
