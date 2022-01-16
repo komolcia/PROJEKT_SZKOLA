@@ -25,6 +25,7 @@ public class Term {
     @Enumerated(EnumType.ORDINAL)
     private AmountOfHours amountOfHours;
 
+
     public Long getId() {
         return id;
     }

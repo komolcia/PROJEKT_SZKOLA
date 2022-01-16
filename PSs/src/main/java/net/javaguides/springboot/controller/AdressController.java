@@ -1,7 +1,10 @@
 package net.javaguides.springboot.controller;
 
 import javax.validation.Valid;
-        import org.springframework.validation.BindingResult;
+
+import net.javaguides.springboot.repository.AdminRepository;
+import net.javaguides.springboot.repository.AdressRepository;
+import org.springframework.validation.BindingResult;
         import org.springframework.web.bind.annotation.PathVariable;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
@@ -23,11 +26,14 @@ public class AdressController {
     public AdressController(@Autowired AdressService adressService) {
         this.adressService = adressService;
     }
-
+    @Autowired public AdressRepository adressRepository;
     @GetMapping("/adress")
-    public String adresss(Model model) {
+    public String adresss(Model model){
         model.addAttribute("allAdresssFromDB", adressService.getAllAdresss());
 
+        if(adressRepository.count()==0) {
+            model.addAttribute("message",adressService.getAllAdresss());
+        }
         // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
         return "indexadress";
     }

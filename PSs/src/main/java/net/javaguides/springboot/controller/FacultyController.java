@@ -35,7 +35,7 @@ public class FacultyController {
         Faculty faculty = new Faculty();
         model.addAttribute("faculty", faculty);
         model.addAttribute("allProfessors", professorRepository.findAll());
-        model.addAttribute("terms",termRepository.findAll() );
+
         return "new_faculty";
     }
 
@@ -55,7 +55,7 @@ public class FacultyController {
         // set admin as a model attribute to pre-populate the form
         model.addAttribute("faculty", faculty);
         model.addAttribute("allProfessors", professorRepository.findAll());
-        model.addAttribute("terms",termRepository.findAll() );
+
         return "update_faculty";
     }
 

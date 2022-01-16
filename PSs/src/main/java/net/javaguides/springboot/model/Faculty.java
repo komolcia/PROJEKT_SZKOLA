@@ -28,7 +28,7 @@ public class Faculty {
     @OneToOne(targetEntity = net.javaguides.springboot.model.Professor.class)
     @Autowired private Professor dean;
     @OneToOne(targetEntity = net.javaguides.springboot.model.Term.class)
-
+private Term term;
 
     public Long getId() {
         return id;
@@ -62,4 +62,5 @@ public class Faculty {
     public void setDean(Professor dean) {
         this.dean = dean;
     }
+
 }

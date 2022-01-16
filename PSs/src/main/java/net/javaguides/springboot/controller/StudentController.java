@@ -4,10 +4,7 @@ import javax.validation.Valid;
 
 import net.javaguides.springboot.model.*;
 import net.javaguides.springboot.model.Class;
-import net.javaguides.springboot.repository.AdressRepository;
-import net.javaguides.springboot.repository.ClassRepository;
-import net.javaguides.springboot.repository.SpecializationRepository;
-import net.javaguides.springboot.repository.TermRepository;
+import net.javaguides.springboot.repository.*;
 import net.javaguides.springboot.service.AdressService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +30,14 @@ public class StudentController {
 	public StudentController(@Autowired StudentService studentService) {
 		this.studentService = studentService;
 	}
-
+	@Autowired public StudentRepository studentRepository;
 	@GetMapping("/student")
 	public String students(Model model){
 		model.addAttribute("allStudentsFromDB", studentService.getAllStudents());
 
+		if(studentRepository.count()==0) {
+			model.addAttribute("message",studentService.getAllStudents());
+		}
 		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
 		return "indexstudent";
 	}

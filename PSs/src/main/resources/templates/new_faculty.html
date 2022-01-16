@@ -56,8 +56,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/specialization">Specialization</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/term">Term</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/class">Classes</a>
                     </li>
                 </ul>
             </div>
@@ -107,12 +111,7 @@
         <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
         <br>
 
-        <select th:field="*{dean}">
-            <option th:each="dean : ${allProfessors}" th:value="${dean.id}" th:text="${dean.lastName}"></option>
-        </select>
-        <select th:field="*{term}">
-            <option th:each="dean : ${terms}" th:value="${dean.id}" th:text="${dean.weeksDay}"></option>
-        </select>
+
         <br>
         <p></p>
 

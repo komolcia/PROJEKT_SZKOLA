@@ -34,6 +34,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Admin addAdmin(Admin admin) {
+
 		return adminRepository.save(admin);
 	}
 
@@ -43,7 +44,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteAdmin(long id) {
+	public void deleteAdmin(long id)
+	{
 		adminRepository.deleteById(id);
 	}
 

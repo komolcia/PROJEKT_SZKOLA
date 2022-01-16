@@ -61,6 +61,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/term">Term</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/classs">Classes</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -122,6 +125,11 @@
 	</tr>
 	</tbody>
 </table>
+<center>
+	<div th:if="${message}">
+		<h2 th:text="NoDataAvailable"/>
+	</div>
+</center>
 <center>
 	<h2><a  th:href = "@{/showNewDeansOfficeEmployeeForm}" color="black"> New DeansOfficeEmployee</a></h2>
 </center>

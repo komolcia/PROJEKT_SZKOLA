@@ -3,10 +3,7 @@ package net.javaguides.springboot.controller;
 import net.javaguides.springboot.model.*;
 import net.javaguides.springboot.model.Class;
 import net.javaguides.springboot.model.domain.Degree;
-import net.javaguides.springboot.repository.AdressRepository;
-import net.javaguides.springboot.repository.ClassRepository;
-import net.javaguides.springboot.repository.SpecializationRepository;
-import net.javaguides.springboot.repository.TermRepository;
+import net.javaguides.springboot.repository.*;
 import net.javaguides.springboot.service.*;
 import net.javaguides.springboot.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +58,12 @@ public class ClassController {
     }
 
     @GetMapping("/class")
-    public String classs(Model model) {
+    public String classs(Model model){
         model.addAttribute("allClasssFromDB", classService.getAllClasses());
 
+        if(classRepository.count()==0) {
+            model.addAttribute("message",classService.getAllClasses());
+        }
         // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
         return "indexclass";
     }

@@ -4,6 +4,7 @@ import net.javaguides.springboot.model.Class;
 import net.javaguides.springboot.model.DeansOfficeEmployee;
 import net.javaguides.springboot.model.DeansOfficeEmployee;
 import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.repository.DeansOfficeEmployeeRepository;
 import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.service.DeansOfficeEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,15 @@ public class DeansOfficeEmployeeController {
 	@Autowired
 	private DeansOfficeEmployeeService deansofficeemployeeService;
 	@Autowired public AdressRepository adressRepository;
-	
-	// display list of deansofficeemployees
+
+	@Autowired public DeansOfficeEmployeeRepository deansofficeemployeeRepository;
 	@GetMapping("/deansofficeemployee")
 	public String deansofficeemployees(Model model){
 		model.addAttribute("allDeansOfficeEmployeesFromDB", deansofficeemployeeService.getAllDeansOfficeEmployees());
 
+		if(deansofficeemployeeRepository.count()==0) {
+			model.addAttribute("message",deansofficeemployeeService.getAllDeansOfficeEmployees());
+		}
 		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
 		return "indexdeansofficeemployee";
 	}

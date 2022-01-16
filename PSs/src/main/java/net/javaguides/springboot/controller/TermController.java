@@ -6,6 +6,7 @@ import net.javaguides.springboot.model.Term;
 import net.javaguides.springboot.model.domain.AmountOfHours;
 import net.javaguides.springboot.model.domain.Day;
 import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.repository.TermRepository;
 import net.javaguides.springboot.service.TermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,13 +25,16 @@ public class TermController {
     private TermService termService;
 
 //     display list of terms
+@Autowired public TermRepository termRepository;
     @GetMapping("/term")
-    public String viewHomePage(Model model) {
+    public String terms(Model model){
         model.addAttribute("allTermsFromDB", termService.getAllTerms());
 
+        if(termRepository.count()==0) {
+            model.addAttribute("message",termService.getAllTerms());
+        }
         // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
         return "indexterm";
-
     }
 
     @PostMapping("/addTerm")
@@ -56,7 +60,7 @@ public class TermController {
 
     @PostMapping("/saveTerm")
     public String saveTerm(@ModelAttribute("term") Term term) {
-        // save admin to database
+        // save term to database
         termService.saveTerm(term);
         return "redirect:/term";
     }
@@ -64,9 +68,9 @@ public class TermController {
     @GetMapping("/showFormForUpdateTerm/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 
-        // get admin from the service
+        // get term from the service
         Term term = termService.getTermById(id);
-        // set admin as a model attribute to pre-populate the form
+        // set term as a model attribute to pre-populate the form
         model.addAttribute("term", term);
         return "update_term";
     }
@@ -74,7 +78,7 @@ public class TermController {
     @GetMapping("/deleteTerm/{id}")
     public String deleteTerm(@PathVariable(value = "id") long id) {
 
-        // call delete admin method
+        // call delete term method
         this.termService.deleteTermById(id);
         return "redirect:/term";
     }

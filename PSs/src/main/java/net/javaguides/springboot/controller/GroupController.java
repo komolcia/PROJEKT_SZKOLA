@@ -1,6 +1,7 @@
 package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.model.Group1;
+import net.javaguides.springboot.repository.GroupRepository;
 import net.javaguides.springboot.service.GroupService;
 import net.javaguides.springboot.service.ProfessorService;
 import net.javaguides.springboot.service.TermService;
@@ -21,10 +22,14 @@ public class GroupController {
     @Autowired
     private TermService termService;
 
+    @Autowired public GroupRepository groupRepository;
     @GetMapping("/group")
-    public String students(Model model){
+    public String groups(Model model){
         model.addAttribute("allGroupsFromDB", groupService.getAllGroups());
 
+        if(groupRepository.count()==0) {
+            model.addAttribute("message",groupService.getAllGroups());
+        }
         // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
         return "indexgroup";
     }
@@ -48,10 +53,10 @@ public class GroupController {
     @GetMapping("/showFormForUpdateGroup/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 
-        // get admin from the service
+        // get group from the service
         Group1 group = groupService.getGroupById(id);
 
-        // set admin as a model attribute to pre-populate the form
+        // set group as a model attribute to pre-populate the form
         model.addAttribute("group", group);
         return "update_group";
     }
@@ -59,7 +64,7 @@ public class GroupController {
     @GetMapping("/deleteGroup/{id}")
     public String deleteGroup(@PathVariable(value = "id") long id) {
 
-        // call delete admin method
+        // call delete group method
         this.groupService.deleteGroupById(id);
         return "redirect:/group";
     }

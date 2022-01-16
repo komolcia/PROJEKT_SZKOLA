@@ -7,10 +7,7 @@ import net.javaguides.springboot.model.domain.AmountOfHours;
 import net.javaguides.springboot.model.domain.Degree;
 import net.javaguides.springboot.model.domain.GradeEnum;
 import net.javaguides.springboot.model.domain.TypeOfClasses;
-import net.javaguides.springboot.repository.AdressRepository;
-import net.javaguides.springboot.repository.ClassRepository;
-import net.javaguides.springboot.repository.ProfessorRepository;
-import net.javaguides.springboot.repository.StudentRepository;
+import net.javaguides.springboot.repository.*;
 import net.javaguides.springboot.service.AdressService;
 import net.javaguides.springboot.service.StudentClassesService;
 import net.javaguides.springboot.service.StudentService;
@@ -35,11 +32,14 @@ public class StudentClassesController {
     public StudentClassesController(@Autowired StudentClassesService studentclassesService) {
         this.studentclassesService = studentclassesService;
     }
-
+    @Autowired public StudentClassesRepository studentclassesRepository;
     @GetMapping("/studentclasses")
     public String studentclassess(Model model){
         model.addAttribute("allStudentClassessFromDB", studentclassesService.getAllStudentClassess());
 
+        if(studentclassesRepository.count()==0) {
+            model.addAttribute("message",studentclassesService.getAllStudentClassess());
+        }
         // Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
         return "indexstudentclasses";
     }

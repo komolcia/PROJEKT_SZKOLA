@@ -4,8 +4,11 @@ import net.javaguides.springboot.model.Admin;
 import net.javaguides.springboot.model.Class;
 import net.javaguides.springboot.model.Admin;
 import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.repository.AdminRepository;
 import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.service.AdminService;
+
+import net.javaguides.springboot.service.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,11 +25,16 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	@Autowired private AdminServiceImpl adminService1;
 	@Autowired public AdressRepository adressRepository;
+	@Autowired public  AdminRepository adminRepository;
 	@GetMapping("/admin")
 	public String admins(Model model){
 		model.addAttribute("allAdminsFromDB", adminService.getAllAdmins());
 
+		if(adminRepository.count()==0) {
+			model.addAttribute("message",adminService.getAllAdmins());
+		}
 		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
 		return "indexadmin";
 	}

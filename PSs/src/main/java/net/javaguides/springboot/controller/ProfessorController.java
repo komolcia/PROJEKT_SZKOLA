@@ -4,6 +4,7 @@ import net.javaguides.springboot.model.Class;
 import net.javaguides.springboot.model.Professor;
 import net.javaguides.springboot.model.Professor;
 import net.javaguides.springboot.model.domain.Degree;
+import net.javaguides.springboot.repository.ProfessorRepository;
 import net.javaguides.springboot.repository.AdressRepository;
 import net.javaguides.springboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,14 @@ public class ProfessorController {
 	@Autowired public AdressRepository adressRepository;
 	
 	// display list of professors
+	@Autowired public ProfessorRepository professorRepository;
 	@GetMapping("/professor")
 	public String professors(Model model){
 		model.addAttribute("allProfessorsFromDB", professorService.getAllProfessors());
 
+		if(professorRepository.count()==0) {
+			model.addAttribute("message",professorService.getAllProfessors());
+		}
 		// Kolejny widok do reenderowania, identifkator logiczny widoku do renderowania
 		return "indexprofessor";
 	}

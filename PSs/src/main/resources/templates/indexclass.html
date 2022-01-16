@@ -58,8 +58,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/specialization">Specialization</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/term">Term</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/class">Classes</a>
                     </li>
                 </ul>
             </div>
@@ -121,6 +125,11 @@
     </tr>
     </tbody>
 </table>
+<center>
+    <div th:if="${message}">
+        <h2 th:text="NoDataAvailable"/>
+    </div>
+</center>
 <center>
 <h2><a  th:href = "@{/showNewClassForm}" color="black"> New Class</a></h2>
 </center>
